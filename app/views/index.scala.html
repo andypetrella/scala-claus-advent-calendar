@@ -1,7 +1,45 @@
-@(message: String)
+@(message: String, currentDay:Int = 1)
 
-@main("Welcome to Play") {
+@main("Scala Claus' Advent Calendar") {
 
-    @play20.welcome(message)
+   <div id="content">
+
+   </div>
+   <input type="button" id="next" value="Go to sleep">
+
+   <script>
+       //GLOBALS VARS
+       currentDay = @currentDay;
+
+       //GLOBAL FUNS
+       function fetchDay (day) {
+           var ajax = jsRoutes.controllers.Application.day(day).ajax();
+           ajax.done(function(html) {
+               $("#content").html(html);
+           });
+           ajax.fail(function(resp) {
+               if (resp.status == 501) {
+                   $("#content").html(resp.responseText);
+               } else {
+                   alert("That's unexpected...");
+                   console.error(resp);
+               }
+           });
+
+       };
+       function wakeUp() {
+           fetchDay(currentDay);
+       };
+       function goToSleep() {
+           currentDay ++;
+           wakeUp();
+       };
+
+       //BEHAVIOR
+       $("#next").on("click", goToSleep);
+
+       //INIT
+       wakeUp();
+   </script>
 
 }

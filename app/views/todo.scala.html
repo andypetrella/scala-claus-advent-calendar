@@ -1,6 +1,5 @@
 @(day:Int, file:String, code:List[(String, Int)])
 
-@main("TODO") {
     <h1>Please complete the code for day @day</h1>
 
     <div id="editor">@code.map(_._1).mkString("\n")</div>
@@ -26,11 +25,9 @@
                 })
                 .done(function(data) {
                     //reload the page
-                    // TODO it might be a contextual refresh rather than a whole page one...
-                    document.location = document.location;
+                    wakeUp();
                 });
             },
             readOnly: true // false if this command should not apply in readOnly mode
         });
     </script>
-}

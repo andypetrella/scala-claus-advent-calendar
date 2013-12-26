@@ -11,12 +11,12 @@ import scala.annotation.tailrec
 object Application extends Controller {
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index("Information about the talk."))
   }
 
-  val dayForm = Form(
-    single(("day",number))
-  )
+  def talk(currentDay:Int = 1) = Action {
+    Ok(views.html.index("The show is going on.", currentDay))
+  }
 
   def day(day:Int) = TalkAction { implicit r =>
     Ok("Success!")
@@ -76,6 +76,7 @@ object Application extends Controller {
 
   def js = Action { implicit request =>
     Ok(Routes.javascriptRouter("jsRoutes")(
+      routes.javascript.Application.day,
       routes.javascript.Application.save
     )).as(MimeTypes.JSON)
   }
