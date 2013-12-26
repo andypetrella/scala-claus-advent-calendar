@@ -54,8 +54,8 @@ object Application extends Controller {
           // by splitting at the start of the old implementation of sync
           val (pre, post) = f.lines().toList.splitAt(start)
 
-          //skip first and last blank
-          val codeLines = code.split("\n").drop(1).toList.init 
+          //split to have all lines
+          val codeLines = code.split("\n").toList
           
           //append the prefix and the suffix by skipping the old implementation
           val update = pre ++: codeLines ++: post.drop(end+1-start)
