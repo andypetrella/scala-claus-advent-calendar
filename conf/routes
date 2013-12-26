@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+GET     /cal                        controllers.Application.day(day:Int)
+GET     /day/1                      controllers.Application.day(day:Int = 1)
+GET     /day/2                      controllers.Application.day(day:Int = 2)
+POST    /cal/:day/:start/:end       controllers.Application.save(day:Int, start:Int, end:Int, file:String)
+
+GET     /js                         controllers.Application.js
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

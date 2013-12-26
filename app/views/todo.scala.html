@@ -1,0 +1,27 @@
+@(day:Int, file:String, code:List[(String, Int)])
+
+@main("TODO") {
+    <h1>Please complete the code for day @day</h1>
+    <pre>
+        <code contenteditable="true">
+@code.map(_._1).mkString("\n")
+        </code>
+    </pre>
+    <input type="button" id="save" value="Save"/>
+    <script>
+        var range = [@code.head._2, @code.last._2];
+        $(document).on("click", "#save", function() {
+            var code = $("code").text();
+            jsRoutes.controllers.Application.save(@day, range[0], range[1], "@file").ajax({
+                data:code,
+                processData: false,
+                contentType:"text/plain; charset=utf-8"
+            })
+            .done(function(data) {
+                //reload the page
+                // TODO it might be a contextual refresh rather than a whole page one...
+                document.location = document.location;
+            });
+        });
+    </script>
+}

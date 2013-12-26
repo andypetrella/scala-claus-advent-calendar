@@ -1,0 +1,88 @@
+package controllers
+
+import play.api._
+import play.api.mvc._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.http.MimeTypes
+import scalax.file.Path
+import scala.annotation.tailrec
+
+object Application extends Controller {
+
+  def index = Action {
+    Ok(views.html.index("Your new application is ready."))
+  }
+
+  val dayForm = Form(
+    single(("day",number))
+  )
+
+  def day(day:Int) = TalkAction { implicit r =>
+    Ok("Success!")
+  }
+
+  private[this] def siblingPath(f:Path, suffix:Option[String]) =
+    (f.toAbsolute.parent.get) / (f.name+".old"+suffix.getOrElse(""))
+
+  @tailrec private[this] def sibling(f:Path, cnt:Option[Int]=None):Path = {
+    val to:Path = siblingPath(f, cnt.map(_.toString()))
+    if (to.exists) {
+      sibling(f, cnt.map(_+1).orElse(Some(1)))
+    } else {
+      to
+    }
+  }
+
+  private[this] def backup(f:Path) {
+    f.copyTo(sibling(f))
+  }
+  
+  private[this] def tempSave(content:List[String]) = {
+    val out = Path.createTempFile("save", "scala")
+    out.writeStrings(content, "\n")
+    out
+  }
+  
+  def save(day:Int, start:Int, end:Int, file:String) = Action { implicit r =>
+    val code = r.body.asText
+    code
+      .map(code => {
+        val f = Path.fromString(file)
+        if (f.exists && f.canWrite) {
+          //grab the previous implementation of the action
+          // by splitting at the start of the old implementation of sync
+          val (pre, post) = f.lines().toList.splitAt(start)
+
+          //skip first and last blank
+          val codeLines = code.split("\n").drop(1).toList.init 
+          
+          //append the prefix and the suffix by skipping the old implementation
+          val update = pre ++: codeLines ++: post.drop(end+1-start)
+
+          //save in temp file to prepare the move
+          val out = tempSave(update)
+          
+          //back here... just in case ;-)
+          backup(f)
+          
+          // move temp file to current Day
+          out.moveTo(f, true)
+        }
+        Ok("saved! => refresh asked with the right url")
+      })
+      .getOrElse(InternalServerError("Cannot save"))
+  }
+
+  def js = Action { implicit request =>
+    Ok(Routes.javascriptRouter("jsRoutes")(
+      routes.javascript.Application.save
+    )).as(MimeTypes.JSON)
+  }
+
+
+
+
+
+
+}
