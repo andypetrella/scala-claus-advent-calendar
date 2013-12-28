@@ -2,11 +2,11 @@
 
     <h1>Please complete the code for day @day</h1>
 
-    <div id="editor">@code.map(_._1).mkString("\n")</div>
+    <div id="editor-@day" class="editor">@code.map(_._1).mkString("\n")</div>
     <script>
         var range = [@code.head._2, @code.last._2];
 
-        var editor = ace.edit("editor");
+        var editor = ace.edit("editor-@day");
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setTabSize(2);
         editor.getSession().setUseSoftTabs(true);
@@ -25,7 +25,7 @@
                 })
                 .done(function(data) {
                     //reload the page
-                    wakeUp();
+                    talk.wakeUp();
                 });
             },
             readOnly: true // false if this command should not apply in readOnly mode

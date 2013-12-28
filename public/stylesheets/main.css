@@ -1,4 +1,8 @@
-#editor {
+body {
+    background-image: url("/assets/images/dark_mosaic.png");
+}
+.editor {
     width: 500px;
     min-height: 300px;
+    margin: auto;
 }

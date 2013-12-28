@@ -2,44 +2,14 @@
 
 @main("Scala Claus' Advent Calendar") {
 
-   <div id="content">
+    <div id="pt-main" class="pt-perspective">
+    </div>
 
-   </div>
+
    <input type="button" id="next" value="Go to sleep">
 
    <script>
-       //GLOBALS VARS
-       currentDay = @currentDay;
-
-       //GLOBAL FUNS
-       function fetchDay (day) {
-           var ajax = jsRoutes.controllers.Application.day(day).ajax();
-           ajax.done(function(html) {
-               $("#content").html(html);
-           });
-           ajax.fail(function(resp) {
-               if (resp.status == 501) {
-                   $("#content").html(resp.responseText);
-               } else {
-                   alert("That's unexpected...");
-                   console.error(resp);
-               }
-           });
-
-       };
-       function wakeUp() {
-           fetchDay(currentDay);
-       };
-       function goToSleep() {
-           currentDay ++;
-           wakeUp();
-       };
-
-       //BEHAVIOR
-       $("#next").on("click", goToSleep);
-
-       //INIT
-       wakeUp();
+       talk = new Talk(@currentDay);
+       talk.wakeUp();
    </script>
-
 }
