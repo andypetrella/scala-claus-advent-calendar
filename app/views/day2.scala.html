@@ -1,1 +1,4 @@
-<h1>Ok 2</h1>
+@(s:String)(implicit code:List[(String, Int)])
+@success(code) {
+    <h1>Ok: @s</h1>
+}

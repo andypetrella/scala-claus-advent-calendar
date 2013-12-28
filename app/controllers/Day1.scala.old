@@ -8,6 +8,6 @@ case class Day1[A](parser:BodyParser[A]) extends DayTmpl[A, Int] {
 
   def sync:Int = {
     val a = 1
-    a
+    ???
   }
 }

@@ -26,7 +26,7 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
     day.bindFromRequest.fold(
       hasErrors = _ => Future.successful(BadRequest("Unknown day!")),
       success = day => {
-        val tmpl: DayTmpl[A] with Product with Serializable = day match {
+        val tmpl: DayTmpl[A, _] = day match {
           case 1 => Day1(parser)
           case 2 => Day2(parser)
         }

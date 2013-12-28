@@ -1,8 +1,27 @@
 body {
     background-image: url("/assets/images/dark_mosaic.png");
 }
+.pt-page {
+    padding-top: 5%;
+    background-color: rgba(10,194,210, 0.1);
+}
+.pt-page .row > div {
+    transition-property: width;
+    transition-duration: .5s;
+    transition-timing-function: ease-in;
+}
+.pt-page.todo {
+    padding-top: 5%;
+    background-color: rgba(253,106,98, 0.2);
+}
 .editor {
     width: 500px;
     min-height: 300px;
     margin: auto;
+}
+.editor.show {
+    position:relative;
+    top: 100px;
+    width: 100%;
+    min-height: 0;
 }

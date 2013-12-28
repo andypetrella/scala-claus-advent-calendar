@@ -10,10 +10,10 @@ import play.templates.Format
 import scala.reflect.ClassTag
 import scalax.file.Path
 
-trait DayTmpl[A] extends Action[A] {
-  lazy val file:Path = Path(".") / "app" / "controllers" / (this.getClass.getSimpleName+".scala")
+trait DayTmpl[A, M] extends Action[A] {
+  val file:Path = Path(".") / "app" / "controllers" / (this.getClass.getSimpleName+".scala")
 
-  lazy val code = file.lines()
+  implicit val code = file.lines()
                           .zipWithIndex
                           .dropWhile { case (l,i) =>
                             !l.dropWhile(_.isSpaceChar).startsWith("def sync")
@@ -21,13 +21,12 @@ trait DayTmpl[A] extends Action[A] {
                           .init
                           .toList
 
-  val content:HtmlFormat.Appendable
+  val content:M => HtmlFormat.Appendable
 
   def apply(request: Request[A]): Future[SimpleResult] = {
-    sync
-    Future.successful(Ok(content))
+    Future.successful(Ok(content(sync)))
   }
 
-  def sync:Unit
+  def sync:M
 
 }

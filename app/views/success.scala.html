@@ -1,0 +1,78 @@
+@(code:List[(String, Int)])(content: Html)
+
+@import views.utils.showCode
+
+@defining{scala.util.Random.nextInt(1000000)} { id =>
+    <div id="page-@id" class="row">
+        <div id="code-@id" class="col-xs-3">
+            <div id="success-@id" class="editor show" style="height: @{code.size*14}px">@showCode(code)</div>
+        </div>
+        <div id="explain-@id" class="col-xs-9">@content</div>
+    </div>
+    <script>
+        var editor = ace.edit("success-@id");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setTabSize(2);
+        editor.getSession().setUseSoftTabs(true);
+        editor.setReadOnly(true);
+        editor.getSession().setMode("ace/mode/scala");
+        var main = $("#page-@id");
+        var code = $("#code-@id");
+        var codeW = 3;
+        var explain = $("#explain-@id");
+        var explainW = 9;
+        main.on("open", function() {
+                if (codeW > 0) {
+                    code.show();
+                }
+            })
+            .on("close", function() {
+                code.hide();
+            })
+            .on("increase", function() {
+                if (explainW==0) {
+                    return;
+                }
+                code.removeClass("col-xs-"+codeW)
+                    .addClass("col-xs-"+(codeW+1));
+                codeW++;
+                explain .removeClass("col-xs-"+explainW)
+                        .addClass("col-xs-"+(explainW-1));
+                explainW--;
+                if (explainW == 0) {
+                    explain.hide();
+                } else {
+                    if (!code.is(":visible")) {
+                        code.show();
+                    }
+                }
+                setTimeout(function() {
+                    editor.resize(true);
+                }, 550);
+            })
+            .on("decrease", function() {
+                if (codeW==0) {
+                    return;
+                }
+                code.removeClass("col-xs-"+codeW)
+                    .addClass("col-xs-"+(codeW-1));
+                codeW--;
+                if (codeW == 0) {
+                    code.hide();
+                } else {
+                    if (!code.is(":visible")) {
+                        code.show();
+                    }
+                    if (!explain.is(":visible")) {
+                        explain.show();
+                    }
+                }
+                explain .removeClass("col-xs-"+explainW)
+                        .addClass("col-xs-"+(explainW+1));
+                explainW++;
+                setTimeout(function() {
+                    editor.resize(true);
+                }, 550);
+            });
+    </script>
+}
