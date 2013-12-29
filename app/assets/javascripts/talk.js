@@ -101,7 +101,11 @@ $(document).on("keyup", function(event) {
         } else if (event.keyCode == 189) { // -
             $(".pt-page-"+talk.currentDay+" .row").trigger('decrease');
         } else if (event.keyCode == 79) { // o
-            $(".pt-page-"+talk.currentDay+" .row").trigger('open');
+            if (event.shiftKey) {
+                $(".pt-page-"+talk.currentDay+" .row").trigger('open-wide');
+            } else {
+                $(".pt-page-"+talk.currentDay+" .row").trigger('open');
+            }
         } else if (event.keyCode == 70) { // f
             $(".pt-page-"+talk.currentDay+" .row").trigger('close');
         }

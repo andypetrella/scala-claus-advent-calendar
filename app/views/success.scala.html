@@ -21,13 +21,37 @@
         var codeW = 3;
         var explain = $("#explain-@id");
         var explainW = 9;
+        function refreshEditor() {
+            setTimeout(function() {
+                editor.resize(true);
+            }, 550);
+        }
         main.on("open", function() {
                 if (codeW > 0) {
-                    code.show();
+                    code.removeClass("col-xs-12")
+                        .removeClass("col-xs-"+codeW)
+                        .addClass("col-xs-"+codeW)
+                        .show();
                 }
+                explain .removeClass("col-xs-12")
+                        .addClass("col-xs-"+explainW)
+                        .show();
+                refreshEditor();
+            })
+            .on("open-wide", function() {
+                code.removeClass("col-xs-12")
+                    .removeClass("col-xs-"+codeW)
+                    .addClass("col-xs-12")
+                    .show();
+               explain.hide();
+               refreshEditor();
             })
             .on("close", function() {
                 code.hide();
+                explain .removeClass("col-xs-12")
+                        .removeClass("col-xs-"+explainW)
+                        .addClass("col-xs-12")
+                refreshEditor();
             })
             .on("increase", function() {
                 if (explainW==0) {
@@ -46,9 +70,7 @@
                         code.show();
                     }
                 }
-                setTimeout(function() {
-                    editor.resize(true);
-                }, 550);
+                refreshEditor();
             })
             .on("decrease", function() {
                 if (codeW==0) {
@@ -70,9 +92,7 @@
                 explain .removeClass("col-xs-"+explainW)
                         .addClass("col-xs-"+(explainW+1));
                 explainW++;
-                setTimeout(function() {
-                    editor.resize(true);
-                }, 550);
+                refreshEditor();
             });
     </script>
 }

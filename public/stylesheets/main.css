@@ -15,7 +15,7 @@ body {
     background-color: rgba(253,106,98, 0.2);
 }
 .editor {
-    width: 500px;
+    width: 85%;
     min-height: 300px;
     margin: auto;
 }
