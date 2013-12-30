@@ -9,21 +9,11 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   lazy val content: String => HtmlFormat.Appendable = s => views.html.day4(s)
 
   def sync:String = {
-    // next string interpolation
-    // next helpers > 1 to 10 and mkString
-    // next type inference
-    // next local function > createTweet()
-    // next class function > User.tweet(st:String)
-    // next immutability > case class && copy
-    // next operator : toString, now, ++
-    // next higher level functions >> map, filter
-    // next infix notation
-
     // The code can be cleaner thanks to Scala Collections!
-    import collection.mutable.ListBuffer
     import org.joda.time.DateTime
     import org.joda.time.DateTime.now
     import scala.util.Random.{nextInt, nextString}
+    import collection.mutable.ListBuffer
 
     class User(var name:String, var tweets:List[Tweet])
     class Tweet(var status:String, var tm:DateTime)
@@ -32,10 +22,8 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     var i = -1
     //Create Set using List builder
     var users:Set[User] = Set(List.fill(10) {
-      var tweets:List[Tweet] = List.fill(???) {
-        //Create less than 50 random tweets with random status of length <= 100
-        ???
-      }
+      //Create less than 50 random tweets with random status of length <= 100
+      ???
       i+=1
       // Create a User
       ???

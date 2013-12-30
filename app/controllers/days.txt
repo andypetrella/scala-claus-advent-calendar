@@ -1,0 +1,8 @@
+    // next helpers > 1 to 10 and mkString
+    // next type inference
+    // next local function > createTweet()
+    // next class function > User.tweet(st:String)
+    // next immutability > case class && copy
+    // next operator : toString, now, ++
+    // next higher level functions >> map, filter
+    // next infix notation

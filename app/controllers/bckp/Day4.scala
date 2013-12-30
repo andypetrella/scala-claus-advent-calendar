@@ -9,17 +9,6 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   lazy val content: String => HtmlFormat.Appendable = s => views.html.day4(s)
 
   def sync:String = {
-    // next string interpolation
-    // next helpers > 1 to 10 and mkString
-    // next type inference
-    // next local function > createTweet()
-    // next class function > User.tweet(st:String)
-    // next immutability > case class && copy
-    // next operator : toString, now, ++
-    // next higher level functions >> map, filter
-    // next infix notation
-
-
     // The code can be cleaner thanks to Scala Collections!
     import org.joda.time.DateTime
     import org.joda.time.DateTime.now

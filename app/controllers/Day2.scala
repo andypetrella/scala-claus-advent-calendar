@@ -12,48 +12,32 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   def sync:String = {
     //And we can even write Java-like code...
     //Create classes
-    class User(var name:String, var tweets:java.util.List[Tweet]) {
-    }
-    class Tweet(var statu:String, var tm:org.joda.time.DateTime) {
+    class User(var name:String, var friends:java.util.Set[User]) {
     }
 
     //counter
     var i = 0;
     //bag
-    var users:java.util.Set[User] = new java.util.HashSet[User]();
+    var users:java.util.Set[User] = ???;
     //while-loop for building
     while (i < 10) {
-      var name = "user"+i;
-      var tweets:java.util.List[Tweet] = new java.util.ArrayList[Tweet]();
-      var j = 0;
-      while(j < random.nextInt()) {
-        tweets.add(
-          new Tweet("tweet-"+name+"-"+j, org.joda.time.DateTime.now())
-        );
-        j += 1;
-      }
-
-      users.add(
-        new User(name, tweets)
-      );
-      i += 1;
+      users.add(new User("user"+i, new java.util.HashSet[User]()));
+      i =  i+1;
     }
-    var info:java.util.List[String] = new java.util.ArrayList[String]();
+    var names:java.util.List[String] = new java.util.ArrayList[String]();
     //for-loop for conversion
     for (u <- users) {
-      info.add(
-        "User " + u.name + " has tweeted " + u.tweets.size() + "times"
-      );
+      names.add(???);
     }
     //String accumulation
     var sb = new java.lang.StringBuffer();
     var first = true;
     //for-loop to aggregate
-    for (n <- info) {
+    for (n <- names) {
       if (first) {
         first = false;
       } else {
-        sb.append("<br/>");
+        sb.append(", ");
       }
       sb.append(n);
     }
