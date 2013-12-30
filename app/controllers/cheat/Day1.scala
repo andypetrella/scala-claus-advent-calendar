@@ -1,7 +1,8 @@
-package controllers
+package controllers.cheat
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
+import controllers.DayTmpl
 
 
 case class Day1[A](parser:BodyParser[A]) extends DayTmpl[A, String] {

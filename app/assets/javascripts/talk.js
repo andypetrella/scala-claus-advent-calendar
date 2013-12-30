@@ -18,9 +18,9 @@ function Talk(day) {
 
     this.fetchDay = function (day) {
         var nextPage = dayPage(day);
-        nextPage.remove();
         var ajax = jsRoutes.controllers.Application.day(day).ajax();
         ajax.done(function(html) {
+            nextPage.remove();
             var current = dayPage(day-1);
 
             nextPage = $("<div class='pt-page pt-page-"+day+"'></div>");
@@ -33,6 +33,7 @@ function Talk(day) {
         });
         ajax.fail(function(resp) {
             if (resp.status == 501) {
+                nextPage.remove();
                 var current = dayPage(day-1);
 
                 //if (!nextPage.length) {
@@ -45,6 +46,7 @@ function Talk(day) {
                 nextPage.addClass("pt-page-current pt-page-scaleUp");
             } else {
                 alert("That's unexpected...");
+                window.open("http://localhost:9000", '_blank');
                 console.error(resp);
             }
         });

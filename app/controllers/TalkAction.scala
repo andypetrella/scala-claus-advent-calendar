@@ -29,12 +29,14 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
         val tmpl: DayTmpl[A, _] = day match {
           case 1 => Day1(parser)
           case 2 => Day2(parser)
+          case 3 => Day3(parser)
+          case 4 => Day4(parser)
         }
         try {
           tmpl(request)
         } catch {
           case e:Throwable => {
-            Future.successful(NotImplemented(views.html.todo(day, tmpl.file.toAbsolute.path, tmpl.code) ))
+            Future.successful(NotImplemented(views.html.todo(day, tmpl.file.toAbsolute.path.replaceAll("\\\\", "\\\\\\\\"), tmpl.code) ))
           }
         }
       }
