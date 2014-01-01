@@ -38,7 +38,7 @@ case class Day6[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       }
       answerWs.append(word.toString())
     }
-    var answer:String = ??
+    var answer:String = ???
 
     s"""<p>Did you know that ${speaker.name} told the following to ${listener.name}?</p>
         <em><quote>
