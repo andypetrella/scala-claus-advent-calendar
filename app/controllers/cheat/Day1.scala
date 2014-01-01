@@ -9,8 +9,8 @@ case class Day1[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   lazy val content: String => HtmlFormat.Appendable = s => views.html.day1(s)
 
   def sync:String = { // this is a method|function
-  // Scala is JVM based
-  var date:java.util.Date = null;
+    // Scala is JVM based
+    var date:java.util.Date = null;
     // and can use whatever Java libs
     var log:org.slf4j.Logger = org.slf4j.LoggerFactory.getLogger("Day1");
     var jodaTime:org.joda.time.DateTime = new org.joda.time.DateTime()

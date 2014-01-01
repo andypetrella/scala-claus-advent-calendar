@@ -19,14 +19,16 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     class Tweet(var status:String, var tm:DateTime)
 
     //counter
-    var i = -1
+    var i:Int = -1
     //Create Set using List builder
     var users:Set[User] = Set(List.fill(10) {
-      //Create less than 50 random tweets with random status of length <= 100
-      ???
+      //Create less than 50 random tweets with random status of length <= 140
+      var tweets:List[Tweet] = List.fill(nextInt(50)) {
+        new Tweet(nextString(nextInt(140)), now())
+      }
       i+=1
       // Create a User
-      ???
+      new User("User"+i, tweets)
     }:_*)
 
     var info:ListBuffer[String] = new ListBuffer[String]()
@@ -35,8 +37,8 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
         "User " + u.name + " has tweeted " + u.tweets.size + "times"
       )
     }
-    var sb = new java.lang.StringBuffer()
-    var first = true
+    var sb:StringBuffer = new java.lang.StringBuffer()
+    var first:Boolean = true
     //for-loop to aggregate
     for (n <- info) {
       if (first) {

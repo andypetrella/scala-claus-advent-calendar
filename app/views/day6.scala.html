@@ -1,0 +1,7 @@
+@(s:String)(implicit code:List[(String, Int)])
+@success(code) {
+    <div class="well">
+        <h1>Some helpful tools at your disposal</h1>
+        <p>@Html(s)</p>
+    </div>
+}

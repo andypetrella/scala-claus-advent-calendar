@@ -16,13 +16,13 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     }
 
     //counter
-    var i = 0;
+    var i:Int = 0;
     //bag
     var users:java.util.Set[User] = ???;
     //while-loop for building
     while (i < 10) {
       users.add(new User("user"+i, new java.util.HashSet[User]()));
-      i =  i+1;
+      i = i+1;
     }
     var names:java.util.List[String] = new java.util.ArrayList[String]();
     //for-loop for conversion
@@ -30,8 +30,8 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       names.add(???);
     }
     //String accumulation
-    var sb = new java.lang.StringBuffer();
-    var first = true;
+    var sb:StringBuffer = new StringBuffer();
+    var first:Boolean = true;
     //for-loop to aggregate
     for (n <- names) {
       if (first) {

@@ -19,14 +19,14 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     }
 
     //counter
-    var i = 0;
+    var i:Int = 0;
     //bag
     var users:java.util.Set[User] = new java.util.HashSet[User]();
     //while-loop for building
     while (i < 10) {
-      var name = "user"+i;
+      var name:String = "user"+i;
       var tweets:java.util.List[Tweet] = new java.util.ArrayList[Tweet]();
-      var j = 0;
+      var j:Int = 0;
       while(j < random.nextInt()) {
         tweets.add(
           new Tweet("tweet-"+name+"-"+j, org.joda.time.DateTime.now())
@@ -47,7 +47,7 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       );
     }
     //String accumulation
-    var sb = new java.lang.StringBuffer();
+    var sb:StringBuffer = new StringBuffer();
     var first = true;
     //for-loop to aggregate
     for (n <- info) {

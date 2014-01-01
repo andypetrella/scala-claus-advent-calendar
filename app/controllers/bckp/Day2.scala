@@ -15,7 +15,7 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     }
 
     //counter
-    var i = 0;
+    var i:Int = 0;
     //bag
     var users:java.util.Set[User] = ???;
     //while-loop for building
@@ -29,8 +29,8 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       names.add(???);
     }
     //String accumulation
-    var sb = new java.lang.StringBuffer();
-    var first = true;
+    var sb:StringBuffer = new StringBuffer();
+    var first:Boolean = true;
     //for-loop to aggregate
     for (n <- names) {
       if (first) {
