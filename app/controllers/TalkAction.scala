@@ -33,6 +33,8 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
           case 4 => Day4(parser)
           case 5 => Day5(parser)
           case 6 => Day6(parser)
+          case 7 => Day7(parser)
+          case 8 => Day8(parser)
         }
         try {
           tmpl(request)

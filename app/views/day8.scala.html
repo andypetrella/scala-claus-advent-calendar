@@ -1,0 +1,9 @@
+@(s:String)(implicit code:List[(String, Int)])
+@success(code) {
+    <div class="well">
+        <h1>There are rooms in Scala to avoid duplicate code</h1>
+        <p>Without necessarily polluting the global code</p>
+        <p>Local definition are so common in general for that</p>
+        <p>@Html(s)</p>
+    </div>
+}

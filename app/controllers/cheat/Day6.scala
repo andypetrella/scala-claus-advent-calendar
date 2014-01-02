@@ -3,9 +3,10 @@ package controllers.cheat
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import scala.collection.mutable.ArrayBuffer
+import controllers.DayTmpl
 
 case class Day6[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  lazy val content: String => HtmlFormat.Appendable = s => views.html.day6(s)
+  val content: String => HtmlFormat.Appendable = s => views.html.day6(s)
 
   def sync:String = {
     // ordered type values has 'to'
@@ -18,7 +19,7 @@ case class Day6[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
     var tellingWs:ArrayBuffer[String] = new ArrayBuffer[String]()
     for (i <- 10 to 0 by -1) {
-      var word = new StringBuilder()
+      var word:StringBuilder = new StringBuilder()
       for (c <- 'a' to 'z') {
         if (nextBoolean()) {
           word.append(c)
@@ -30,7 +31,7 @@ case class Day6[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
     var answerWs:ArrayBuffer[String] = new ArrayBuffer[String]()
     for (i <- 30 to 0 by -1) {
-      var word = new StringBuilder()
+      var word:StringBuilder = new StringBuilder()
       for (c <- 'A' to 'Z' ) {
         if (nextBoolean()) {
           word.append(c)

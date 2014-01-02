@@ -6,7 +6,7 @@ import scala.collection.JavaConversions._
 import controllers.DayTmpl
 
 case class Day3[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  lazy val content: String => HtmlFormat.Appendable = s => views.html.day3(s)
+  val content: String => HtmlFormat.Appendable = s => views.html.day3(s)
 
   var random = new java.util.Random()
 

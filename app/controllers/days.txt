@@ -1,8 +1,19 @@
-    // next helpers > 1 to 10 and mkString
-    // next type inference
-    // next local function > createTweet()
-    // next class function > User.tweet(st:String)
-    // next immutability > case class && copy
-    // next operator : toString, now, ++
-    // next higher level functions >> map, filter
-    // next infix notation
+8   // next local function > createTweet()
+9   // next class function > User.tweet(st:String)
+10  // next immutability > case class && copy
+11  // next default parameter
+12  // next object and case object
+13  // next companion object and "static" functions
+14  // next operator : toString, now, ++
+15  // next higher level functions >> map, filter
+16  // next infix notation
+17  // next pattern matching on case class
+18  // next sealed trait
+19  // next null and Option + pattern matching
+20  // next Option has map flatMap
+21  // next for comprehension on list
+22  // next for comprehension on Option
+23  // next Future
+24  // next Future with for comprehension
+25  // next implicit parameters => introduction for and Advanced Calendar
+

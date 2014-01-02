@@ -6,7 +6,7 @@ import scala.collection.JavaConversions._
 import controllers.DayTmpl
 
 case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  lazy val content: String => HtmlFormat.Appendable = s => views.html.day4(s)
+  val content: String => HtmlFormat.Appendable = s => views.html.day4(s)
 
   def sync:String = {
     // The code can be cleaner thanks to Scala Collections!
