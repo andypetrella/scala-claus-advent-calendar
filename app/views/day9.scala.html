@@ -1,0 +1,9 @@
+@(s:String)(implicit code:List[(String, Int)])
+@success(code) {
+    <div class="well">
+        <h1>Classes are not just baf of data</h1>
+        <p>They can declare and holds different business computations</p>
+        <p>or derived values...</p>
+        <p>@Html(s)</p>
+    </div>
+}

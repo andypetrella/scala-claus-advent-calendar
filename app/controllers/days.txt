@@ -1,19 +1,17 @@
-8   // next local function > createTweet()
-9   // next class function > User.tweet(st:String)
-10  // next immutability > case class && copy
-11  // next default parameter
-12  // next object and case object
-13  // next companion object and "static" functions
-14  // next operator : toString, now, ++
-15  // next higher level functions >> map, filter
-16  // next infix notation
-17  // next pattern matching on case class
-18  // next sealed trait
-19  // next null and Option + pattern matching
-20  // next Option has map flatMap
-21  // next for comprehension on list
-22  // next for comprehension on Option
-23  // next Future
-24  // next Future with for comprehension
-25  // next implicit parameters => introduction for and Advanced Calendar
+10  //  immutability > case class && copy
+11  //  default parameter
+12  //  object and case object
+13  //  companion object and "static" functions
+14  //  operator : toString, now, ++
+15  //  higher level functions >> map, filter
+16  //  infix notation
+17  //  pattern matching on case class
+18  //  sealed trait
+19  //  null and Option + pattern matching
+20  //  Option has map flatMap
+21  //  for comprehension on list
+22  //  for comprehension on Option
+23  //  Future
+24  //  Future with for comprehension
+25  //  implicit parameters => introduction for and Advanced Calendar
 
