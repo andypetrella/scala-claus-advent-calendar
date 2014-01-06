@@ -8,7 +8,7 @@ import scala.util.Random._
 import controllers.DayTmpl
 
 case class Day9[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day8(s)
+  val content: String => HtmlFormat.Appendable = s => views.html.day9(s)
 
   def sync:String = {
     s"""
@@ -17,10 +17,14 @@ case class Day9[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     import collection.mutable.ListBuffer
 
     class User(var name:String, var tweets:ListBuffer[Tweet]) {
-      def tweet(s:String) = tweets.append(new Tweet(s, now()))
+      def tweet(s:String) {
+        // this block returns Unit !!! => void
+        tweets.append(new Tweet(s, now()))
+      }
     }
     class Tweet(var status:String, var tm:DateTime) {
-      override def toString() = status
+      // single line implementation : Note the return type has been omitted
+      override def toString() = s"$status at $tm"
     }
 
     var dude = new User("Dude", ListBuffer.empty) //let's start with an empty tweets' list

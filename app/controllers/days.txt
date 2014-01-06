@@ -1,5 +1,3 @@
-10  //  immutability > case class && copy
-11  //  default parameter
 12  //  object and case object
 13  //  companion object and "static" functions
 14  //  operator : toString, now, ++
