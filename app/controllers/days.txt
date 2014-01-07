@@ -1,5 +1,4 @@
-12  //  object and case object
-13  //  companion object and "static" functions
+13  //  abstract classes and traits
 14  //  operator : toString, now, ++
 15  //  higher level functions >> map, filter
 16  //  infix notation

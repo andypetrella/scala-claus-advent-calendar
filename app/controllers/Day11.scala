@@ -8,7 +8,7 @@ import scala.List
 import org.joda.time.DateTime._
 
 case class Day11[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day10(s)
+  val content: String => HtmlFormat.Appendable = s => views.html.day11(s)
 
   implicit class ListOps[A](as:List[A]) {
     def add(a:A) = a::as
