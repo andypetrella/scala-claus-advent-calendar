@@ -39,7 +39,7 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
           case 10 => Day10(parser)
           case 11 => Day11(parser)
           case 12 => Day12(parser)
-          //case 13 => Day13(parser)
+          case 13 => Day13(parser)
           //case 14 => Day14(parser)
           //case 15 => Day15(parser)
           //case 16 => Day16(parser)
