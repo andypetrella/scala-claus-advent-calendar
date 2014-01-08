@@ -10,4 +10,3 @@
 23  //  Future
 24  //  Future with for comprehension
 25  //  implicit parameters => introduction for and Advanced Calendar
-
