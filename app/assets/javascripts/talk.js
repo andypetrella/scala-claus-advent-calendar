@@ -36,17 +36,17 @@ function Talk(day) {
                 nextPage.remove();
                 var current = dayPage(day-1);
 
-                //if (!nextPage.length) {
                 nextPage = $("<div class='pt-page todo pt-page-"+day+"'></div>");
                 main.append(nextPage);
-                //}
+
                 nextPage.html(resp.responseText);
 
                 current.addClass("pt-page-rotateFall pt-page-ontop");
                 nextPage.addClass("pt-page-current pt-page-scaleUp");
             } else {
                 alert("That's unexpected...");
-                window.open("http://localhost:9000", '_blank');
+                a = window.open("http://localhost:9000", '_blank');
+                a.document.write(resp.responseText);
                 console.error(resp);
             }
         });
@@ -85,6 +85,27 @@ function Talk(day) {
         }
         yesterday.removeClass("pt-page-rotateFall pt-page-ontop");
         yesterday.addClass("pt-page-current pt-page-scaleUp");
+    };
+    this.saveCode = function(day, code, file, retried) {
+        var me = this;
+        jsRoutes.controllers.Application.save(day, file).ajax({
+            data:code,
+            processData: false,
+            contentType:"text/plain; charset=utf-8"
+        })
+        .done(function(data) {
+            //reload the page
+            me.wakeUp()
+                .fail(function(resp) {
+                    if (resp.status != 501) {
+                        if (!retried) {
+                            return me.saveCode(day, code, file, true);
+                        }
+                    } else {
+                        return resp;
+                    }
+                });
+        });
     };
 
 }

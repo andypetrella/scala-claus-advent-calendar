@@ -43,29 +43,34 @@ object Application extends Controller {
     out.writeStrings(content, "\n")
     out
   }
-  
-  def save(day:Int, start:Int, end:Int, file:String) = Action { implicit r =>
+
+  def save(day:Int, file:String) = Action { implicit r =>
     val code = r.body.asText
     code
       .map(code => {
         val f = Path.fromString(file)
         if (f.exists && f.canWrite) {
+          //fetch where is the last code!
+          val oldCode = DayTmpl.extractCode(f)
+          val start = oldCode.head._2
+          val end = oldCode.last._2
+
           //grab the previous implementation of the action
           // by splitting at the start of the old implementation of sync
           val (pre, post) = f.lines().toList.splitAt(start)
 
           //split to have all lines
           val codeLines = code.split("\n").toList
-          
+
           //append the prefix and the suffix by skipping the old implementation
           val update = pre ++: codeLines ++: post.drop(end+1-start)
 
           //save in temp file to prepare the move
           val out = tempSave(update)
-          
+
           //back here... just in case ;-)
           backup(f)
-          
+
           // move temp file to current Day
           out.moveTo(f, true)
         }

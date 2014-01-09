@@ -9,7 +9,7 @@ GET     /talk                       controllers.Application.talk(currentDay:Int 
 GET     /talk/:currentDay           controllers.Application.talk(currentDay:Int)
 
 GET     /cal                        controllers.Application.day(day:Int)
-POST    /cal                        controllers.Application.save(day:Int, start:Int, end:Int, file:String)
+POST    /cal                        controllers.Application.save(day:Int, file:String)
 
 # JS routes
 GET     /js                         controllers.Application.js

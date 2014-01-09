@@ -13,13 +13,7 @@ trait DayTmpl[A, M] extends Action[A] {
   val day:Int = this.getClass.getSimpleName.drop("Day".length).toInt
   val file:Path = fileFor(day)//Path(".") / "app" / "controllers" / (this.getClass.getSimpleName+".scala")
 
-  implicit val code = file.lines()
-                          .zipWithIndex
-                          .dropWhile { case (l,i) =>
-                            !l.dropWhile(_.isSpaceChar).startsWith("def sync")
-                          }
-                          .init
-                          .toList
+  implicit val code = extractCode(file)
 
   val content:M => HtmlFormat.Appendable
 
@@ -59,4 +53,11 @@ object DayTmpl {
       //case 24 => Day24(parser)
       //case 25 => Day25(parser)
     }
+  def extractCode(file:Path)= file.lines()
+                                  .zipWithIndex
+                                  .dropWhile { case (l,i) =>
+                                    !l.dropWhile(_.isSpaceChar).startsWith("def sync")
+                                  }
+                                  .init //last line must be last '}'
+                                  .toList
 }
