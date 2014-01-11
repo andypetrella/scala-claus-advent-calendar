@@ -1,11 +1,10 @@
-14  //  operator : toString, now, ++
 15  //  higher level functions >> map, filter
-16  //  infix notation
-17  //  pattern matching on case class
-18  //  sealed trait
-19  //  null and Option + pattern matching
-20  //  Option has map flatMap
-21  //  for comprehension on list
+16  //  for comprehension on list
+17  //  infinite list: Stream
+18  //  pattern matching on case class
+19  //  sealed trait
+20  //  null and Option + pattern matching
+21  //  Option has map flatMap
 22  //  for comprehension on Option
 23  //  Future
 24  //  Future with for comprehension

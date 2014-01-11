@@ -11,7 +11,7 @@ import play.api.mvc.SimpleResult
 trait DayTmpl[A, M] extends Action[A] {
   import DayTmpl._
   val day:Int = this.getClass.getSimpleName.drop("Day".length).toInt
-  val file:Path = fileFor(day)//Path(".") / "app" / "controllers" / (this.getClass.getSimpleName+".scala")
+  val file:Path = fileFor(day)
 
   implicit val code = extractCode(file)
 
@@ -24,7 +24,9 @@ trait DayTmpl[A, M] extends Action[A] {
   def sync:M
 }
 object DayTmpl {
+
   def fileFor(day:Int):Path = Path(".") / "app" / "controllers" / s"Day$day.scala"
+
   def actionFor[A](day:Int, parser:BodyParser[A]):DayTmpl[A, _] =
     day match {
       case 1 => Day1(parser)
@@ -41,17 +43,17 @@ object DayTmpl {
       case 12 => Day12(parser)
       case 13 => Day13(parser)
       case 14 => Day14(parser)
-      //case 15 => Day15(parser)
-      //case 16 => Day16(parser)
-      //case 17 => Day17(parser)
-      //case 18 => Day18(parser)
-      //case 19 => Day19(parser)
-      //case 20 => Day20(parser)
-      //case 21 => Day21(parser)
-      //case 22 => Day22(parser)
-      //case 23 => Day23(parser)
-      //case 24 => Day24(parser)
-      //case 25 => Day25(parser)
+      case 15 => Day15(parser)
+      case 16 => Day16(parser)
+      case 17 => Day17(parser)
+      case 18 => Day18(parser)
+      case 19 => Day19(parser)
+      case 20 => Day20(parser)
+      case 21 => Day21(parser)
+      case 22 => Day22(parser)
+      case 23 => Day23(parser)
+      case 24 => Day24(parser)
+      case 25 => Day25(parser)
     }
   def extractCode(file:Path)= file.lines()
                                   .zipWithIndex
