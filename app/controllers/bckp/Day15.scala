@@ -53,11 +53,12 @@ case class Day15[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       val name = u.name
       val tweets = u.tweets
       var count = 0
+      //count all 'char' in all tweets
       for (tweet <- tweets) {
         val status = tweet.status
         for (c <- status) { //Awesome no!!!
           if (c == char) {
-            count += 1
+            ???
           }
         }
       }

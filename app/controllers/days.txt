@@ -1,6 +1,3 @@
-15  //  higher level functions >> map, filter
-16  //  for comprehension on list
-17  //  infinite list: Stream
 18  //  pattern matching on case class
 19  //  sealed trait
 20  //  null and Option + pattern matching

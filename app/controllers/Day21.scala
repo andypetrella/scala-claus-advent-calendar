@@ -13,10 +13,6 @@ import scala.List
 case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   val content: String => HtmlFormat.Appendable = s => views.html.day21(s)
 
-  implicit class ListOps[A](as: List[A]) {
-    def addAll(os: List[A]) = as ::: os
-  }
-
   def sync: String = {
     s"""
       ${???}

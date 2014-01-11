@@ -1,14 +1,14 @@
-package controllers
+package controllers.cheat
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import org.joda.time.DateTime
 import org.joda.time.DateTime.now
 import scala.List
-import scala.collection.mutable.ListBuffer
+import controllers.DayTmpl
 
-case class Day15[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day15(s)
+case class Day16[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
+  val content: String => HtmlFormat.Appendable = s => views.html.day16(s)
 
   implicit class ListOps[A](as:List[A]) {
     def addAll(os:List[A]) = as:::os
@@ -16,7 +16,7 @@ case class Day15[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     s"""
-      Don't know you but it seems that I saw several time (quite) the same code, right${???}
+      There must be a way to clean that up... Isn't it
     """
 
     case class User( name:String, tweets:List[Tweet] = List.empty) {
@@ -39,30 +39,20 @@ case class Day15[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     import scala.util.Random.nextInt
     //create a bunch of users with a bunch of tweets
     val users = List.fill(nextInt(50)) {
-                  User( randomText(10),
-                        List.fill(100){
-                          Tweet.random
-                        })
-                }
-
-    // build some report
-    val texts = ListBuffer.empty[String]
-    val char = 'a'
-    for (u <- users) {
-      val name = u.name
-      val tweets = u.tweets
-      var count = 0
-      for (tweet <- tweets) {
-        val status = tweet.status
-        for (c <- status) { //Awesome no!!!
-          if (c == char) {
-            count += 1
-          }
-        }
-      }
-      texts += s"$name has tweeted $count '$char'"
+      User( randomText(10),
+        List.fill(100){
+          Tweet.random
+        })
     }
 
+    val char = 'a'
+    val texts = users.map { user =>
+      val ones = for {
+        tweet <- user.tweets
+        c     <- tweet.status if c == char
+      } yield 1
+      s"${user.name} has tweeted ${ones.sum} '$char'"
+    }
 
     s"""
      ${texts.mkString("<br/>")}
