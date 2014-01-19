@@ -1,4 +1,4 @@
-package controllers
+package controllers.cheat
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
@@ -48,20 +48,22 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     val persons = List.fill(1000)(Person.random)
 
     val greetings = persons.map { person =>
-      person.nationality.map { nationality =>
+      person.nationality.flatMap { nationality =>
         if (nationality.isInstanceOf[Belgium]) {
           val belgian = nationality.asInstanceOf[Belgium]
           if (belgian.lg == "FR") {
-            s"Salut, m'fi..."
+            Some(s"Salut, m'fi...")
           } else if (belgian.lg == "NL" || belgian.lg == "DE") {
-            s"Hallo, ${person.name}!"
+            Some(s"Hallo, ${person.name}!")
+          } else {
+            None
           }
         } else if (nationality == England) {
-          s"Hello, ${person.name}!"
+          Some(s"Hello, ${person.name}!")
         } else if (nationality == France) {
-          s"Salut, ${person.name} !"
+          Some(s"Salut, ${person.name} !")
         } else {
-          s"${???}"
+          None
         }
       }.getOrElse(s"${???}")
     }

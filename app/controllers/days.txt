@@ -1,8 +1,5 @@
-18  //  pattern matching on case class
-19  //  sealed trait
-20  //  null and Option + pattern matching
-21  //  Option has map flatMap
-22  //  for comprehension on Option
+21  //  for comprehension on Option
+22  //  pattern matching to clear everything up
 23  //  Future
 24  //  Future with for comprehension
 25  //  implicit parameters => introduction for and Advanced Calendar

@@ -1,4 +1,4 @@
-package controllers
+package controllers.bckp
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat

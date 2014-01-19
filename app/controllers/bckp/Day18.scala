@@ -1,11 +1,10 @@
-package controllers
+package controllers.bckp
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
-import org.joda.time.DateTime
-import org.joda.time.DateTime.now
 import scala.List
 import scala.util.Random._
+import controllers.DayTmpl
 
 case class Day18[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   val content: String => HtmlFormat.Appendable = s => views.html.day18(s)

@@ -1,4 +1,4 @@
-package controllers
+package controllers.bckp
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
@@ -6,8 +6,8 @@ import scala.List
 import scala.util.Random._
 import controllers.DayTmpl
 
-case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day20(s)
+case class Day19[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
+  val content: String => HtmlFormat.Appendable = s => views.html.day19(s)
 
   trait Country {
     def lg:String
@@ -22,23 +22,21 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      What, huh, duplication code...?
+      `isDefined`, `get`... really?
     """
 
     object Person {
       import scala.util.Random.nextPrintableChar
       def validChars:Stream[Char] = (nextPrintableChar #:: validChars).filter(c => c.isWhitespace || (('a' to 'z') contains c))
       def randomText(max:Int):String = validChars.take(max).mkString("")
-      def randomCountry:Option[Country] =
-        if (nextBoolean())
+      def randomCountry:Option[Country] = 
+        if (nextBoolean()) 
           Some(Belgium("FR"))
-        else if (nextBoolean())
-          Some(Belgium("NL"))
-        else if (nextBoolean())
-          Some(Belgium("DE"))
-        else if (nextBoolean())
-          Some(England)
-        else if (nextBoolean())
+        else if (nextBoolean()) 
+          Some(Belgium("NL")) 
+        else if (nextBoolean()) 
+          Some(England) 
+        else if (nextBoolean()) 
           Some(France)
         else None
       def random = Person(randomText(10), randomCountry)
@@ -48,7 +46,11 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     val persons = List.fill(1000)(Person.random)
 
     val greetings = persons.map { person =>
-      person.nationality.map { nationality =>
+      if (!person.nationality.isDefined) {
+        ???
+      } else {
+        val nationality = person.nationality.get
+        ???
         if (nationality.isInstanceOf[Belgium]) {
           val belgian = nationality.asInstanceOf[Belgium]
           if (belgian.lg == "FR") {
@@ -61,9 +63,9 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
         } else if (nationality == France) {
           s"Salut, ${person.name} !"
         } else {
-          s"${???}"
+          s"..."
         }
-      }.getOrElse(s"${???}")
+      }
     }
 
     s"""
