@@ -1,10 +1,11 @@
-package controllers
+package controllers.cheat
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import scala.List
 import scala.util.Random._
 import scala.Some
+import controllers.DayTmpl
 
 case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   val content: String => HtmlFormat.Appendable = s => views.html.day21(s)
@@ -34,7 +35,7 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      You're not happy, still${???} Me too!
+      You're not happy, still! We can do better!
     """
 
     object Person {
@@ -58,34 +59,30 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     val persons = List.fill(1000)(Person.random)
 
     val greetings = persons.map { person =>
-      person.nationality.flatMap { nationality =>
-        if (person.gender.isDefined) {
-          val gender = person.gender.get
-          ???
-          if (nationality.isInstanceOf[Belgium]) {
-            val belgian = nationality.asInstanceOf[Belgium]
-            if (belgian.lg == "FR") {
-              Some(s"Salut, ${walloon(gender)}...")
-            } else if (belgian.lg == "NL") {
-              Some(s"Hallo, ${flemish(gender)}!")
-            } else if (belgian.lg == "DE") {
-              Some(s"Hallo, ${deutsch(gender)}!")
-            } else {
-              None
-            }
-          } else if (nationality == England) {
-            Some(s"Hello, ${english(gender)}!")
-          } else if (nationality == France) {
-            Some(s"Salut, ${french(gender)} !")
+      val greet = for {
+        nationality <- person.nationality
+        gender      <- person.gender
+      } yield {
+        if (nationality.isInstanceOf[Belgium]) {
+          val belgian = nationality.asInstanceOf[Belgium]
+          if (belgian.lg == "FR") {
+            Some(s"Salut, ${walloon(gender)}...")
+          } else if (belgian.lg == "NL") {
+            Some(s"Hallo, ${flemish(gender)}!")
+          } else if (belgian.lg == "DE") {
+            Some(s"Hallo, ${deutsch(gender)}!")
           } else {
-            ???
             None
           }
-        } else  {
-          ???
+        } else if (nationality == England) {
+          Some(s"Hello, ${english(gender)}!")
+        } else if (nationality == France) {
+          Some(s"Salut, ${french(gender)} !")
+        } else {
           None
         }
-      }.getOrElse(s"...")
+      }
+      greet.getOrElse(s"...")
     }
 
     s"""

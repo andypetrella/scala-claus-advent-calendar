@@ -1,10 +1,11 @@
-package controllers
+package controllers.cheat
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import scala.List
 import scala.util.Random._
 import scala.Some
+import controllers.DayTmpl
 
 case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   val content: String => HtmlFormat.Appendable = s => views.html.day22(s)
@@ -16,8 +17,8 @@ case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      Looks like you're almost happy, but not there yet huh${???}
-      Let's see what we can do...
+      Looks like you're almost happy, but not there yet huh...
+      ... let's introduce Pattern Matching
     """
 
     trait Country {
@@ -59,35 +60,20 @@ case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
     val persons = List.fill(1000)(Person.random)
 
-    def greets(nationality:Country, gender:Gender) = {
-      s"looks rather complicated, right ${???}"
-      if (nationality.isInstanceOf[Belgium]) {
-        val belgian = nationality.asInstanceOf[Belgium]
-        if (belgian.lg == "FR") {
-          Some(s"Salut, ${walloon(gender)}...")
-        } else if (belgian.lg == "NL") {
-          Some(s"Hallo, ${flemish(gender)}!")
-        } else if (belgian.lg == "DE") {
-          Some(s"Hallo, ${deutsch(gender)}!")
-        } else {
-          None
-        }
-      } else if (nationality == England) {
-        Some(s"Hello, ${english(gender)}!")
-      } else if (nationality == France) {
-        Some(s"Salut, ${french(gender)} !")
-      } else {
-        None
-      }
+    def greets(nationality:Country, gender:Gender) = (nationality, gender) match {
+      case (Belgium("FR"), gender) => Some(s"Salut, ${walloon(gender)}...")
+      case (Belgium("NL"), gender) => Some(s"Hallo, ${flemish(gender)}!")
+      case (Belgium("DE"), gender) => Some(s"Hallo, ${deutsch(gender)}!")
+      case (England, gender)       => Some(s"Hello, ${english(gender)}!")
+      case (France, gender)        => Some(s"Salut, ${french(gender)} !")
+      case x                       => None
     }
 
     val greetings = persons.map { person =>
       val greet = for {
         nationality <- person.nationality
         gender      <- person.gender
-      } yield {
-        greets(nationality, gender)
-      }
+      } yield greets(nationality, gender)
       greet.getOrElse(s"...")
     }
 

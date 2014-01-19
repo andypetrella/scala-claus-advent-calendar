@@ -1,5 +1,3 @@
-21  //  for comprehension on Option
-22  //  pattern matching to clear everything up
 23  //  Future
 24  //  Future with for comprehension
-25  //  implicit parameters => introduction for and Advanced Calendar
+25  //  implicit parameters => introduction to the Advanced Calendar

@@ -65,7 +65,7 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
         } else {
           None
         }
-      }.getOrElse(s"${???}")
+      }.getOrElse(s"...")
     }
 
     s"""
