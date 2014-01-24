@@ -1,12 +1,13 @@
-package controllers
+package controllers.cheat
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import scala.List
 import scala.concurrent.{Await, Future}
-import scala.concurrent.duration._
 import scala.util.{Failure, Success}
+import scala.concurrent.duration._
+import controllers.DayTmpl
 
 case class Day24[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
   val content: Future[String] => HtmlFormat.Appendable = s => Await.result(s.map(r => views.html.day24(r)), 10 seconds)
@@ -35,12 +36,15 @@ case class Day24[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
       Ok, ok, now what if we have delayed, async computations... is even easier with functional style...
     """
 
-    val asking:Future[String] = async(questioner, questions(nextInt(questions.size)))
-    asking.flatMap { tweet => tweet match {
-      case t if t.contains("quest")     => async(answerer, "To seek the Holy Grail.").map{a => t + "\n" + a + ???}
-      case unknown                          => async(answerer, "I don't know that.").map{a => unknown + "\n" + a + ???}
-    }
-    }.recover {
+    val text:Future[String] = for {
+      question <- async(questioner, questions(nextInt(questions.size)))
+      answer   <- async(answerer, question match {
+                    case t if t.contains("quest")     => "To seek the Holy Grail."
+                    case unknown                      => "I don't know that."
+                  })
+    } yield question + "\n" + answer
+
+    text.recover{
       case ex    => "We're in trouble"
     }
 
