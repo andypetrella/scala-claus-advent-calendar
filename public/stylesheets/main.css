@@ -19,6 +19,13 @@ body {
     min-height: 300px;
     margin: auto;
 }
+.editor.full {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left:0;
+}
 .editor.show {
     position:relative;
     top: 100px;

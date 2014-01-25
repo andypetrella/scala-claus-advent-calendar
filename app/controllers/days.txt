@@ -1,3 +1,0 @@
-23  //  Future
-24  //  Future with for comprehension
-25  //  implicit parameters => introduction to the Advanced Calendar

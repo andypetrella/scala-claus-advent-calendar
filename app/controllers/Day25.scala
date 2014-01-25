@@ -1,9 +1,5 @@
 package controllers
 
-/**
- * Created by noootsab on 1/11/14.
- */
-
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import org.joda.time.DateTime
@@ -15,7 +11,7 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      ${???}
+      Don't you feel sometimes bored passing along the same parameters... again and again${???}
     """
 
     s"""

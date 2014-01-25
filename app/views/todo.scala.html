@@ -14,6 +14,10 @@
     editor.setPrintMarginColumn(120);
     editor.getSession().setMode("ace/mode/scala");
 
+    editor.toggleFullScreen = function(me) {
+        $((me||this).container).toggleClass("full");
+    };
+
     editor.commands.addCommand({
         name: 'save',
         bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
@@ -23,4 +27,13 @@
         },
         readOnly: true // false if this command should not apply in readOnly mode
     });
+
+    editor.commands.addCommand({
+        name: 'full',
+        bindKey: {win: 'Ctrl-Alt-F',  mac: 'Command-Alt-F'},
+        exec: editor.toggleFullScreen,
+        readOnly: true // false if this command should not apply in readOnly mode
+    });
+
+    window.currrentEditor = editor;
 </script>
