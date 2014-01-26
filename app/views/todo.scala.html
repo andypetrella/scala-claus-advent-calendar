@@ -5,35 +5,37 @@
 
 <div id="editor-@day" class="editor">@showCode(code)</div>
 <script>
-    var editor = ace.edit("editor-@day");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setTabSize(2);
-    editor.getSession().setUseSoftTabs(true);
-    editor.setReadOnly(false);
-    editor.setFontSize(15);
-    editor.setPrintMarginColumn(120);
-    editor.getSession().setMode("ace/mode/scala");
+  var editor = ace.edit("editor-@day");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setTabSize(2);
+  editor.getSession().setUseSoftTabs(true);
+  editor.setReadOnly(false);
+  editor.setFontSize(15);
+  editor.setPrintMarginColumn(120);
+  editor.getSession().setMode("ace/mode/scala");
 
-    editor.toggleFullScreen = function(me) {
-        $((me||this).container).toggleClass("full");
-    };
+  editor.toggleFullScreen = function(me) {
+    var editor =(me||this);
+    $(editor.container).toggleClass("full");
+    editor.resize(true);
+  };
 
-    editor.commands.addCommand({
-        name: 'save',
-        bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
-        exec: function(editor) {
-            var code = editor.getValue();
-            talk.saveCode(@day, code, "@file");
-        },
-        readOnly: true // false if this command should not apply in readOnly mode
-    });
+  editor.commands.addCommand({
+    name: 'save',
+    bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+    exec: function(editor) {
+      var code = editor.getValue();
+      talk.saveCode(@day, code, "@file");
+    },
+    readOnly: true // false if this command should not apply in readOnly mode
+  });
 
-    editor.commands.addCommand({
-        name: 'full',
-        bindKey: {win: 'Ctrl-Alt-F',  mac: 'Command-Alt-F'},
-        exec: editor.toggleFullScreen,
-        readOnly: true // false if this command should not apply in readOnly mode
-    });
+  editor.commands.addCommand({
+    name: 'full',
+    bindKey: {win: 'Ctrl-Alt-F',  mac: 'Command-Alt-F'},
+    exec: editor.toggleFullScreen,
+    readOnly: true // false if this command should not apply in readOnly mode
+  });
 
-    window.currrentEditor = editor;
+  window.currrentEditor = editor;
 </script>
