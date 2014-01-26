@@ -1,8 +1,9 @@
-package controllers
+package controllers.bckp
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import scala.collection.mutable
+import controllers.DayTmpl
 
 case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   val content: String => HtmlFormat.Appendable = s => views.html.day25(s)

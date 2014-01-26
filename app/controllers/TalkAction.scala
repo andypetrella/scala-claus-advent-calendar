@@ -36,6 +36,9 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
           tmpl(request)
         } catch {
           case e:Throwable => {
+            println(">> Exception for Day: " + day)
+            e.printStackTrace()
+            println("Exception for Day: " + day + " <<")
             Future.successful(NotImplemented(views.html.todo(day, tmpl.file.updateForWin, tmpl.code) ))
           }
         }

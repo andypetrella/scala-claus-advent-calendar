@@ -1,8 +1,9 @@
-package controllers
+package controllers.cheat
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import scala.collection.mutable
+import controllers.DayTmpl
 
 case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   val content: String => HtmlFormat.Appendable = s => views.html.day25(s)
@@ -10,7 +11,7 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      Don't you feel sometimes bored passing along the same parameters... again and again${???}
+      Don't you feel sometimes bored passing along the same parameters... again and again
     """
     trait Model {
       val id:Option[Long]
@@ -38,10 +39,10 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
         store(id)
       }
     }
-    object AddressPersistentComponent extends PersistentComponent[Address] {
+    implicit object AddressPersistentComponent extends PersistentComponent[Address] {
       def preSave(m: Address): Address = m
     }
-    object UserPersistentComponent extends PersistentComponent[Character] {
+    implicit object UserPersistentComponent extends PersistentComponent[Character] {
       def preSave(m: Character): Character = {
         val userUpdatedOpt = m.address.map{a =>
           //if address is defined => save it before
@@ -54,15 +55,15 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     }
 
     object PersistentService {
-      def save[M<:Model](m:M)(s:PersistentComponent[M]):M = s.save(m)
+      def save[M<:Model](m:M)(implicit s:PersistentComponent[M]):M = s.save(m)
     }
     import PersistentService._
 
-    val bond = save(Character(name="Bond"))(UserPersistentComponent)
-    val frodon = save(Character(name="Frodon", address=Some(Address(place="Shire"))))(UserPersistentComponent)
-    val bilbon = save(Character(name="Bilbon", address=frodon.address))(UserPersistentComponent)
-    val tatooine = save(Address(place="Tatooine"))(???)
-    val luke = save(Character(name="Luke", address=Some(tatooine)))(???)
+    val bond = save(Character(name="Bond"))
+    val frodon = save(Character(name="Frodon", address=Some(Address(place="Shire"))))
+    val bilbon = save(Character(name="Bilbon", address=frodon.address))
+    val tatooine = save(Address(place="Tatooine"))
+    val luke = save(Character(name="Luke", address=Some(tatooine)))
 
     val casting = List(bond, frodon, bilbon, luke)
 
