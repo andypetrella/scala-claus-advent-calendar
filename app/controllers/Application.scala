@@ -52,8 +52,8 @@ object Application extends Controller {
         if (f.exists && f.canWrite) {
           //fetch where is the last code!
           val oldCode = DayTmpl.extractCode(f)
-          val start = oldCode.head._2
-          val end = oldCode.last._2
+          val start = oldCode.lines.head._2
+          val end = oldCode.lines.last._2
 
           //grab the previous implementation of the action
           // by splitting at the start of the old implementation of sync

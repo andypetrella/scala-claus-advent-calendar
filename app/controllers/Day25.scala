@@ -10,8 +10,9 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      Don't you feel sometimes bored passing along the same parameters... again and again${???}
+      Don't you feel sometimes bored passing along the same parameters... again and again${????("Yes!")}
     """
+    StartFold
     trait Model {
       val id:Option[Long]
       def withId(id:Long):this.type
@@ -38,9 +39,12 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
         store(id)
       }
     }
+    EndFold
+    ????("AddressPersistentComponent should be implicit")
     object AddressPersistentComponent extends PersistentComponent[Address] {
       def preSave(m: Address): Address = m
     }
+    ????("UserPersistentComponent should be implicit")
     object UserPersistentComponent extends PersistentComponent[Character] {
       def preSave(m: Character): Character = {
         val userUpdatedOpt = m.address.map{a =>
@@ -54,6 +58,7 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     }
 
     object PersistentService {
+      ????("s should be implicit")
       def save[M<:Model](m:M)(s:PersistentComponent[M]):M = s.save(m)
     }
     import PersistentService._
@@ -61,8 +66,8 @@ case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     val bond = save(Character(name="Bond"))(UserPersistentComponent)
     val frodon = save(Character(name="Frodon", address=Some(Address(place="Shire"))))(UserPersistentComponent)
     val bilbon = save(Character(name="Bilbon", address=frodon.address))(UserPersistentComponent)
-    val tatooine = save(Address(place="Tatooine"))(???)
-    val luke = save(Character(name="Luke", address=Some(tatooine)))(???)
+    val tatooine = save(Address(place="Tatooine"))(????("Remove this block..."))
+    val luke = save(Character(name="Luke", address=Some(tatooine)))(????("Remove this block..."))
 
     val casting = List(bond, frodon, bilbon, luke)
 

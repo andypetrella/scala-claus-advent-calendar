@@ -1,11 +1,9 @@
-@(code:List[(String, Int)])(content: Html)
-
-@import views.utils.showCode
+@(code:controllers.Code)(content: Html)
 
 @defining{scala.util.Random.nextInt(1000000)} { id =>
     <div id="page-@id" class="row">
         <div id="code-@id" class="col-xs-3">
-            <div id="success-@id" class="editor show" style="height: @{code.size*14}px">@showCode(code)</div>
+            <div id="success-@id" class="editor show" style="height: @{code.code.size*14}px">@code.code</div>
         </div>
         <div id="explain-@id" class="col-xs-9">@content</div>
     </div>

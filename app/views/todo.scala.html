@@ -1,9 +1,8 @@
-@(day:Int, file:String, code:List[(String, Int)])
+@(day:Int, file:String, code:controllers.Code)
 
-@import views.utils.showCode
 <h1>Please complete the code for day @day</h1>
 
-<div id="editor-@day" class="editor">@showCode(code)</div>
+<div id="editor-@day" class="editor">@code.code</div>
 <script>
   var editor = ace.edit("editor-@day");
   editor.setTheme("ace/theme/monokai");
@@ -36,6 +35,24 @@
     exec: editor.toggleFullScreen,
     readOnly: true // false if this command should not apply in readOnly mode
   });
+
+  var offset = function(idx) { return idx - @code.lines.head._2;}
+
+  var AceRange = ace.require("./range").Range;
+  @code.folds.map { fold =>
+    editor.session.addFold("test", new AceRange(offset(@(fold._1._1)), @fold._1._2, offset(@(fold._2._1))+1, @(fold._2._2)))
+  }
+
+  var annotations = [];
+  @code.marks.map { mark =>
+    annotations.push({
+      row: offset(@mark._2),
+      column: 0,
+      text: "@mark._1",
+      type: "error"
+    });
+  }
+  editor.session.setAnnotations(annotations);
 
   window.currrentEditor = editor;
 </script>

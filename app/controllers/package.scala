@@ -1,5 +1,5 @@
-package controllers
-
 package object controllers {
-  def ???(msg:String) : Nothing = throw new NotImplementedError
+  val StartFold = "StartFold"
+  val EndFold = "EndFold"
+  def ????(msg:String) : Nothing = throw new NotImplementedError
 }
