@@ -12,7 +12,9 @@ case class Day3[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     //TIME TO REMOVE SOME NOISE  | ; return import { } now
-    ???
+    ????("remove return")
+    ????("add import java.util and Datetime.now")
+    ????("remove semi-colon")
 
     class User(var name:String, var tweets:java.util.List[Tweet]) {
     }
@@ -26,6 +28,7 @@ case class Day3[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       var tweets:java.util.List[Tweet] = new java.util.ArrayList[Tweet]();
       var j:Int = 0;
       while(j < random.nextInt()) {
+        ????("use unqualified now()")
         tweets.add(
           new Tweet("tweet-"+name+"-"+j, org.joda.time.DateTime.now())
         );
