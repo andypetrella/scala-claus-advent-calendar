@@ -19,6 +19,17 @@
     editor.resize(true);
   };
 
+  editor.cheat = function(me) {
+    if (confirm("Really?")) {
+      alert("You dummy bastard ;-)");
+      var editor =(me||this);
+      var ajax = jsRoutes.controllers.Application.cheat(@day).ajax();
+      ajax.done(function(code) {
+        editor.session.setValue(code);
+      });
+    }
+  };
+
   editor.commands.addCommand({
     name: 'save',
     bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
@@ -33,6 +44,13 @@
     name: 'full',
     bindKey: {win: 'Ctrl-Alt-F',  mac: 'Command-Alt-F'},
     exec: editor.toggleFullScreen,
+    readOnly: true // false if this command should not apply in readOnly mode
+  });
+
+  editor.commands.addCommand({
+    name: 'full',
+    bindKey: {win: 'Ctrl-Alt-C',  mac: 'Command-Alt-C'},
+    exec: editor.cheat,
     readOnly: true // false if this command should not apply in readOnly mode
   });
 

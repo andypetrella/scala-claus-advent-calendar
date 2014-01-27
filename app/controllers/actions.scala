@@ -7,7 +7,6 @@ import play.api.mvc.Results._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc
-import scalax.file.Path
 
 object TalkAction extends ActionBuilder[Request] {
   protected def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[mvc.SimpleResult]): Future[mvc.SimpleResult] =
@@ -18,20 +17,19 @@ object TalkAction extends ActionBuilder[Request] {
 
 case class DayAction[A](action: Action[A]) extends Action[A] {
   val day = Form(
-    single(("day",number))
+    tuple(
+      ("day",number),
+      ("cheat",optional(boolean))
+    )
   )
-
-  implicit class WinPath(p:Path) {
-    val updateForWin = p.toAbsolute.path.replaceAll("\\\\", "\\\\\\\\")
-  }
 
   def apply(request: Request[A]): Future[SimpleResult] = {
     implicit val r = request
 
     day.bindFromRequest.fold(
       hasErrors = _ => Future.successful(BadRequest("Unknown day!")),
-      success = day => {
-        val tmpl: DayTmpl[A, _] = DayTmpl.actionFor[A](day, parser)
+      success = {case (day, cheat) => {
+        val tmpl: DayTmpl[A, _] = DayTmpl.actionFor[A](day, parser, cheat.isDefined)
         try {
           tmpl(request)
         } catch {
@@ -42,7 +40,7 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
             Future.successful(NotImplemented(views.html.todo(day, tmpl.file.updateForWin, tmpl.code) ))
           }
         }
-      }
+      }}
     )
 
   }

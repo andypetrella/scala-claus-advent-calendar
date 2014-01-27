@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.http.MimeTypes
 import scalax.file.Path
 import scala.annotation.tailrec
+import play.api.templates.Html
 
 object Application extends Controller {
 
@@ -18,8 +19,12 @@ object Application extends Controller {
     Ok(views.html.index("The show is going on.", currentDay))
   }
 
-  def day(day:Int) = TalkAction { implicit r =>
+  def day(day:Int, cheat:Option[Boolean]) = TalkAction { implicit r =>
     Ok("Success!")
+  }
+
+  def cheat(day:Int) = Action {
+    Ok(DayTmpl.actionFor(day, BodyParsers.parse.text, true).code.code)
   }
 
   private[this] def siblingPath(f:Path, suffix:Option[String]) =
@@ -82,6 +87,7 @@ object Application extends Controller {
   def js = Action { implicit request =>
     Ok(Routes.javascriptRouter("jsRoutes")(
       routes.javascript.Application.day,
+      routes.javascript.Application.cheat,
       routes.javascript.Application.save
     )).as(MimeTypes.JSON)
   }

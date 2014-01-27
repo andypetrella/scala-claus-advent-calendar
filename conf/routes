@@ -8,7 +8,8 @@ GET     /                           controllers.Application.index
 GET     /talk                       controllers.Application.talk(currentDay:Int = 1)
 GET     /talk/:currentDay           controllers.Application.talk(currentDay:Int)
 
-GET     /cal                        controllers.Application.day(day:Int)
+GET     /cal                        controllers.Application.day(day:Int, cheat:Option[Boolean])
+GET     /cheat                      controllers.Application.cheat(day:Int)
 POST    /cal                        controllers.Application.save(day:Int, file:String)
 
 # JS routes

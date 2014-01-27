@@ -18,7 +18,7 @@ function Talk(day) {
 
   this.fetchDay = function (day) {
     var nextPage = dayPage(day);
-    var ajax = jsRoutes.controllers.Application.day(day).ajax();
+    var ajax = jsRoutes.controllers.Application.day(day, window.godMode).ajax();
     ajax.done(function(html) {
       nextPage.remove();
       var current = dayPage(day-1);
