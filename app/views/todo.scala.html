@@ -73,4 +73,9 @@
   editor.session.setAnnotations(annotations);
 
   window.currrentEditor = editor;
+
+  // restart the clock
+  window.clock.stop();
+  window.clock.setTime(3*60);
+  window.clock.start();
 </script>

@@ -3,53 +3,73 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>@title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <title>@title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
-        <!-- Loading Bootstrap -->
-        <link media="screen" href="@routes.Assets.at("stylesheets/fui/bootstrap/css/bootstrap.css")" rel="stylesheet">
+    <!-- Loading Bootstrap -->
+    <link media="screen" href="@routes.Assets.at("stylesheets/fui/bootstrap/css/bootstrap.css")" rel="stylesheet">
 
-        <!-- Loading Flat UI -->
-        <link media="screen" href="@routes.Assets.at("stylesheets/fui/css/flat-ui.css")" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link media="screen" href="@routes.Assets.at("stylesheets/fui/css/flat-ui.css")" rel="stylesheet">
 
-        <!-- Page Transitions-->
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pt/component.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pt/animations.css")">
+    <!-- Page Transitions-->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pt/component.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pt/animations.css")">
+    
+    <!-- flip clock -->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/flipclock.css")">
 
-        <!-- Talk css -->
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <!-- Talk css -->
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 
-        <!-- JQuery Toolbelt -->
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <!-- JQuery Toolbelt -->
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
 
-        <!-- Voix: https://github.com/pazguille/voix -->
-        <script src="@routes.Assets.at("javascripts/voix.js")" type="text/javascript"></script>
+    <!-- Voix: https://github.com/pazguille/voix -->
+    <script src="@routes.Assets.at("javascripts/voix.js")" type="text/javascript"></script>
 
-        <!-- FUI -->
-        <!--<script src="js/jquery-1.8.3.min.js"></script>-->
-        <script src="@routes.Assets.at("javascripts/fui/jquery-ui-1.10.3.custom.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/jquery.ui.touch-punch.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/bootstrap.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/bootstrap-select.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/bootstrap-switch.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/flatui-checkbox.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/flatui-radio.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/jquery.tagsinput.js")"></script>
-        <script src="@routes.Assets.at("javascripts/fui/jquery.placeholder.js")"></script>
+    <!-- FUI -->
+    <!--<script src="js/jquery-1.8.3.min.js"></script>-->
+    <script src="@routes.Assets.at("javascripts/fui/jquery-ui-1.10.3.custom.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/jquery.ui.touch-punch.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/bootstrap.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/bootstrap-select.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/bootstrap-switch.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/flatui-checkbox.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/flatui-radio.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/jquery.tagsinput.js")"></script>
+    <script src="@routes.Assets.at("javascripts/fui/jquery.placeholder.js")"></script>
 
-        <!-- ACE editor -->
-        <script src="@routes.Assets.at("javascripts/ace/ace.js")" type="text/javascript" charset="utf-8"></script>
+    <!-- ACE editor -->
+    <script src="@routes.Assets.at("javascripts/ace/ace.js")" type="text/javascript" charset="utf-8"></script>
 
-        <!-- Talk JS routes -->
-        <script src="@routes.Application.js()" type="text/javascript"></script>
+    <!-- flip clock -->
+    <script src="@routes.Assets.at("javascripts/flipclock.min.js")"></script>
 
-        <!-- Talk JS -->
-        <script src="@routes.Assets.at("javascripts/talk.js")" type="text/javascript" charset="utf-8"></script>
-    </head>
-    <body>
-        @content
-    </body>
+    <!-- Talk JS routes -->
+    <script src="@routes.Application.js()" type="text/javascript"></script>
+
+    <!-- Talk JS -->
+    <script src="@routes.Assets.at("javascripts/talk.js")" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="global-clock" style="position:fixed; top: 10px; left: 5%;" ></div>
+    <div id="clock" style="position:fixed; top: 10px; left: 75%;" ></div>
+    @content
+    <script>
+      window.globalClock = $('#global-clock').FlipClock(30*3*60, {
+        countdown: true,
+        autoStart: false,
+        clockFace: 'HourCounter'
+      });
+      window.clock = $('#clock').FlipClock(3*60, {
+        countdown: true,
+        autoStart: false,
+        clockFace: 'MinuteCounter'
+      });
+    </script>
+  </body>
 </html>

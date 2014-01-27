@@ -135,6 +135,10 @@ $(document).on("keyup", function(event) {
       } else {
         $(".pt-page-"+talk.currentDay+" .row").trigger('close');
       }
+    } else if (event.keyCode == 83) { // s
+      if (event.ctrlKey && event.altKey && window.globalClock) {
+        window.globalClock.start();
+      }
     }
   }
 });

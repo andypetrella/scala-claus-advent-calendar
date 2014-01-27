@@ -1,96 +1,96 @@
 @(code:controllers.Code)(content: Html)
 
 @defining{scala.util.Random.nextInt(1000000)} { id =>
-    <div id="page-@id" class="row">
-        <div id="code-@id" class="col-xs-3">
-            <div id="success-@id" class="editor show" style="height: @{code.code.size*14}px">@code.code</div>
-        </div>
-        <div id="explain-@id" class="col-xs-9">@content</div>
+  <div id="page-@id" class="row page">
+    <div id="code-@id" class="col-xs-3">
+      <div id="success-@id" class="editor show" style="height: @{code.code.size*14}px">@code.code</div>
     </div>
-    <script>
-        var editor = ace.edit("success-@id");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setTabSize(2);
-        editor.getSession().setUseSoftTabs(true);
-        editor.setReadOnly(true);
-        editor.getSession().setMode("ace/mode/scala");
-        var main = $("#page-@id");
-        var code = $("#code-@id");
-        var codeW = 3;
-        var explain = $("#explain-@id");
-        var explainW = 9;
-        function refreshEditor() {
-            setTimeout(function() {
-                editor.resize(true);
-            }, 550);
+    <div id="explain-@id" class="col-xs-9">@content</div>
+  </div>
+  <script>
+    var editor = ace.edit("success-@id");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setTabSize(2);
+    editor.getSession().setUseSoftTabs(true);
+    editor.setReadOnly(true);
+    editor.getSession().setMode("ace/mode/scala");
+    var main = $("#page-@id");
+    var code = $("#code-@id");
+    var codeW = 3;
+    var explain = $("#explain-@id");
+    var explainW = 9;
+    function refreshEditor() {
+      setTimeout(function() {
+        editor.resize(true);
+      }, 550);
+    }
+    main.on("open", function() {
+        if (codeW > 0) {
+          code.removeClass("col-xs-12")
+            .removeClass("col-xs-"+codeW)
+            .addClass("col-xs-"+codeW)
+            .show();
         }
-        main.on("open", function() {
-                if (codeW > 0) {
-                    code.removeClass("col-xs-12")
-                        .removeClass("col-xs-"+codeW)
-                        .addClass("col-xs-"+codeW)
-                        .show();
-                }
-                explain .removeClass("col-xs-12")
-                        .addClass("col-xs-"+explainW)
-                        .show();
-                refreshEditor();
-            })
-            .on("open-wide", function() {
-                code.removeClass("col-xs-12")
-                    .removeClass("col-xs-"+codeW)
-                    .addClass("col-xs-12")
-                    .show();
-               explain.hide();
-               refreshEditor();
-            })
-            .on("close", function() {
-                code.hide();
-                explain .removeClass("col-xs-12")
-                        .removeClass("col-xs-"+explainW)
-                        .addClass("col-xs-12")
-                refreshEditor();
-            })
-            .on("increase", function() {
-                if (explainW==0) {
-                    return;
-                }
-                code.removeClass("col-xs-"+codeW)
-                    .addClass("col-xs-"+(codeW+1));
-                codeW++;
-                explain .removeClass("col-xs-"+explainW)
-                        .addClass("col-xs-"+(explainW-1));
-                explainW--;
-                if (explainW == 0) {
-                    explain.hide();
-                } else {
-                    if (!code.is(":visible")) {
-                        code.show();
-                    }
-                }
-                refreshEditor();
-            })
-            .on("decrease", function() {
-                if (codeW==0) {
-                    return;
-                }
-                code.removeClass("col-xs-"+codeW)
-                    .addClass("col-xs-"+(codeW-1));
-                codeW--;
-                if (codeW == 0) {
-                    code.hide();
-                } else {
-                    if (!code.is(":visible")) {
-                        code.show();
-                    }
-                    if (!explain.is(":visible")) {
-                        explain.show();
-                    }
-                }
-                explain .removeClass("col-xs-"+explainW)
-                        .addClass("col-xs-"+(explainW+1));
-                explainW++;
-                refreshEditor();
-            });
-    </script>
+        explain .removeClass("col-xs-12")
+            .addClass("col-xs-"+explainW)
+            .show();
+        refreshEditor();
+      })
+      .on("open-wide", function() {
+        code.removeClass("col-xs-12")
+          .removeClass("col-xs-"+codeW)
+          .addClass("col-xs-12")
+          .show();
+         explain.hide();
+         refreshEditor();
+      })
+      .on("close", function() {
+        code.hide();
+        explain .removeClass("col-xs-12")
+            .removeClass("col-xs-"+explainW)
+            .addClass("col-xs-12")
+        refreshEditor();
+      })
+      .on("increase", function() {
+        if (explainW==0) {
+          return;
+        }
+        code.removeClass("col-xs-"+codeW)
+          .addClass("col-xs-"+(codeW+1));
+        codeW++;
+        explain .removeClass("col-xs-"+explainW)
+            .addClass("col-xs-"+(explainW-1));
+        explainW--;
+        if (explainW == 0) {
+          explain.hide();
+        } else {
+          if (!code.is(":visible")) {
+            code.show();
+          }
+        }
+        refreshEditor();
+      })
+      .on("decrease", function() {
+        if (codeW==0) {
+          return;
+        }
+        code.removeClass("col-xs-"+codeW)
+          .addClass("col-xs-"+(codeW-1));
+        codeW--;
+        if (codeW == 0) {
+          code.hide();
+        } else {
+          if (!code.is(":visible")) {
+            code.show();
+          }
+          if (!explain.is(":visible")) {
+            explain.show();
+          }
+        }
+        explain .removeClass("col-xs-"+explainW)
+            .addClass("col-xs-"+(explainW+1));
+        explainW++;
+        refreshEditor();
+      });
+  </script>
 }
