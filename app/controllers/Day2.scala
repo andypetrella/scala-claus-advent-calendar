@@ -19,11 +19,11 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     //counter
     var i:Int = 0;
     //bag
-    var users:java.util.Set[User] = ????("new java.util.HashSet[User]()");
+    var users:java.util.Set[User] = ????("new java.util.HashSet[Tweet]()");
     //while-loop for building
     while (i < 10) {
       ????("Create some tweets and use them in the constructor of User")
-      users.add(new User("user"+i, new java.util.HashSet[User]()));
+      users.add(new User("user"+i, new java.util.HashSet[String]()));
       i = i+1;
     }
     var names:java.util.List[String] = new java.util.ArrayList[String]();

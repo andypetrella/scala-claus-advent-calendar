@@ -34,9 +34,9 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      You're not happy, still${???} Me too!
+      You're not happy, still${????("if we have to Options => use for comprehension")} Me too!
     """
-
+    StartFold
     object Person {
       import scala.util.Random.nextPrintableChar
       def validChars:Stream[Char] = (nextPrintableChar #:: validChars).filter(c => c.isWhitespace || (('a' to 'z') contains c))
@@ -53,6 +53,8 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
       def randomGender = randomizer(List((0.3, Some(Male)), (0.7, Some(Female)), (1.0, None)))
       def random = Person(randomText(10), randomCountry, randomGender)
     }
+    EndFold
+
     case class Person(name:String, nationality:Option[Country], gender:Option[Gender])
 
     val persons = List.fill(1000)(Person.random)
@@ -61,7 +63,7 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
       person.nationality.flatMap { nationality =>
         if (person.gender.isDefined) {
           val gender = person.gender.get
-          ???
+          ????("What the heck... this code is bloated")
           if (nationality.isInstanceOf[Belgium]) {
             val belgian = nationality.asInstanceOf[Belgium]
             if (belgian.lg == "FR") {
@@ -78,12 +80,10 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
           } else if (nationality == France) {
             Some(s"Salut, ${french(gender)} !")
           } else {
-            ???
-            None
+            ????("first None...")
           }
         } else  {
-          ???
-          None
+          ????("second None...")
         }
       }.getOrElse(s"...")
     }

@@ -33,14 +33,14 @@ case class Day24[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
   def sync: Future[String] = {
     s"""
       Ok, ok, now what if we have delayed, async computations... is even easier with functional style...
+      ${????("avoid the map and the flatMap using for comprehension")}
     """
 
     val asking:Future[String] = async(questioner, questions(nextInt(questions.size)))
     asking.flatMap { tweet => tweet match {
-      case t if t.contains("quest")     => async(answerer, "To seek the Holy Grail.").map{a => t + "\n" + a + ???}
-      case unknown                          => async(answerer, "I don't know that.").map{a => unknown + "\n" + a + ???}
-    }
-    }.recover {
+      case t if t.contains("quest")     => async(answerer, "To seek the Holy Grail.").map{a => t + "\n" + a + ????("nor more needed")}
+      case unknown                      => async(answerer, "I don't know that.").map{a => unknown + "\n" + a + ????("nor more needed")}
+    }}.recover {
       case ex    => "We're in trouble"
     }
 

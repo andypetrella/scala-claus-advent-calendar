@@ -13,12 +13,13 @@ case class Day7[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   def sync:String = {
     s"""
       Did you notice that we needed to type so many times things
-      that are so obvious ${???}
+      that are so obvious ${????("remove types for users, arraybuffers")}
     """
-
+    StartFold
     import util.Random._
     class User(var name:String, var tweets:List[Tweet])
     class Tweet(var status:String, var tm:DateTime)
+    EndFold
 
     var dude:User = new User("Dude", List.fill(nextInt(50)){ new Tweet(nextString(nextInt(140)), now()) })
     var mate:User = new User("Mate", List.fill(nextInt(50)){ new Tweet(nextString(nextInt(140)), now()) })

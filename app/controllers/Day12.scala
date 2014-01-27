@@ -16,17 +16,19 @@ case class Day12[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   def sync:String = {
     s"""
       Object Oriented is all about classes...
-      Why not objects as well ${???}
+      Why not objects as well ${????("define an object as Util.random as Tweet.random")}
     """
+    ????("Object.random = Random.nextString")
     case class User(name:String, tweets:List[Tweet] = List.empty) {
       def tweet(t:Tweet):User = this.copy(tweets = tweets.add(t))
     }
     class Tweet(val status:String, val tm:DateTime = now()) {
       override def toString() = s"$status at $tm"
     }
+    ????("Tweet.random with MaxLength")
 
     val dude = new User("Dude")
-    def createTweet() = ???
+    def createTweet() = ????("remove and use Tweet.random() below")
     val tweetedDude = dude.tweet(createTweet())
 
     s"""

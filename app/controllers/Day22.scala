@@ -16,7 +16,7 @@ case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      Looks like you're almost happy, but not there yet huh${???}
+      Looks like you're almost happy, but not there yet huh${????("use pattern matching for Countries in greets")}
       Let's see what we can do...
     """
 
@@ -60,7 +60,7 @@ case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     val persons = List.fill(1000)(Person.random)
 
     def greets(nationality:Country, gender:Gender) = {
-      s"looks rather complicated, right ${???}"
+      s"looks rather complicated, right ${????("use pattern matching here")}"
       if (nationality.isInstanceOf[Belgium]) {
         val belgian = nationality.asInstanceOf[Belgium]
         if (belgian.lg == "FR") {

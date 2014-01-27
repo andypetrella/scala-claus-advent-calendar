@@ -10,6 +10,7 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     // The code can be cleaner thanks to Scala Collections!
+    StartFold
     import org.joda.time.DateTime
     import org.joda.time.DateTime.now
     import scala.util.Random.{nextInt, nextString}
@@ -17,6 +18,7 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
     class User(var name:String, var tweets:List[Tweet])
     class Tweet(var status:String, var tm:DateTime)
+    EndFold
 
     //counter
     var i:Int = -1

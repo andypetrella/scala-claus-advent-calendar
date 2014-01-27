@@ -11,7 +11,7 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      The random text aren't cute and, moreover, not representative... what could I do${???}
+      The random text aren't cute and, moreover, not representative... what could I do${????("")}
     """
 
     case class User( name:String, tweets:List[Tweet] = List.empty) {
@@ -20,13 +20,15 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     object Util {
       // nextPrintableChar
       import scala.util.Random.nextString
-      def randomText(max:Int):String = nextString(max).filter(c => ???) // REALLY??
+      ????("validChars:Stream[Char] using nextPrintableChar and recursive")
+      def randomText(max:Int):String = nextString(max).filter(c => ????("needs a filter on a stream and take max")) // REALLY??
     }
 
     object Tweet {
       val MaxStatusLength = 140
       def random:Tweet = new Tweet(Util.randomText(MaxStatusLength))
     }
+    StartFold
     class Tweet(val status:String, val tm:DateTime = now()) {
       override def toString = s"tweet: $status at $tm"
     }
@@ -51,6 +53,7 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
       s"$name has tweeted $count '$char'"
     }
+    EndFold
 
     s"""
      ${texts.mkString("<br/>")}

@@ -15,7 +15,7 @@ case class Day13[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     s"""
-      What about hierarchy of types${???}
+      What about hierarchy of types${????("it is very extensible thanks to trait")}
     """
     abstract class Metadata(val openid:String = "") {
       val provider:String = ""
@@ -25,12 +25,13 @@ case class Day13[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
                      oid:String = "",
                      tweets:List[Tweet] = List.empty,
                      linkedInStatuses:List[LinkedInStatus] = List.empty
-                   ) extends Metadata(???) {
+                   ) extends Metadata(????("use oid here")) {
       def tweet(t:Tweet):User = this.copy(tweets = tweets.add(t))
       def postLinkedInStatus(s:LinkedInStatus):User = this.copy(linkedInStatuses = linkedInStatuses.add(s))
 
-      s"So, we need to extend for each new 'social' network ${???}"
+      s"So, we need to extend for each new 'social' network ${????("use trait for twitter and linkedin")}"
     }
+    StartFold
     object Util {
       import scala.util.Random.nextString
       def randomText(max:Int):String = nextString(max)
@@ -51,6 +52,7 @@ case class Day13[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     class LinkedInStatus(val status:String, val tm:DateTime = now()) {
       override def toString() = s"linkedin: $status at $tm"
     }
+    EndFold
 
     val dude = new User("Dude")
     val socialDude = dude .tweet(Tweet.random())

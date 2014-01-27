@@ -22,9 +22,9 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      What, huh, duplication code...?
+      What, huh, duplication code...${????("use flatMap on country to remove the else equal to the getOrElse")}
     """
-
+    StartFold
     object Person {
       import scala.util.Random.nextPrintableChar
       def validChars:Stream[Char] = (nextPrintableChar #:: validChars).filter(c => c.isWhitespace || (('a' to 'z') contains c))
@@ -46,6 +46,7 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     case class Person(name:String, nationality:Option[Country])
 
     val persons = List.fill(1000)(Person.random)
+    EndFold
 
     val greetings = persons.map { person =>
       person.nationality.map { nationality =>
@@ -61,9 +62,9 @@ case class Day20[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
         } else if (nationality == France) {
           s"Salut, ${person.name} !"
         } else {
-          s"${???}"
+          s"${????("first ...")}"
         }
-      }.getOrElse(s"${???}")
+      }.getOrElse(s"${????("second ...")}")
     }
 
     s"""

@@ -18,7 +18,7 @@ case class Day15[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     s"""
       Don't know you but it seems that I saw several time (quite) the same code, right${???}
     """
-
+    StartFold
     case class User( name:String, tweets:List[Tweet] = List.empty) {
       def tweet(t:Tweet):User = this.copy(tweets = t :: tweets)
     }
@@ -44,20 +44,23 @@ case class Day15[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
                           Tweet.random
                         })
                 }
+    EndFold
 
     // build some report
-    val texts = ListBuffer.empty[String]
+    val texts:ListBuffer[String] = ????("this accumulator is no more needed, but use it as the return")
     val char = 'a'
     for (u <- users) {
+      ????("use map on users here")
       val name = u.name
       val tweets = u.tweets
       var count = 0
       //count all 'char' in all tweets
       for (tweet <- tweets) {
+        ????("use map on tweets")
         val status = tweet.status
         for (c <- status) { //Awesome no!!!
           if (c == char) {
-            ???
+            ????("user filter on status here and use .length on the result")
           }
         }
       }

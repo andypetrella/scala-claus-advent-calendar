@@ -11,7 +11,7 @@ case class Day8[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     s"""
-      But wait there are some duplicated code ${???}
+      But wait there are some duplicated code ${????("create def for create tweets and transform to String")}
     """
 
     import util.Random._
@@ -19,13 +19,14 @@ case class Day8[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     class Tweet(var status:String, var tm:DateTime)
 
     var dude = new User("Dude", List.fill(nextInt(50)){ new Tweet(nextString(nextInt(140)), now()) })
-    var mate = new User("Mate", ???)
+    var mate = new User("Mate", ????("oh not again"))
 
+    ????("this can be a toTweets")
     var dudeTweets = new ArrayBuffer[String]()
     for (t <- dude.tweets) {
       dudeTweets.append(t.status)
     }
-    var mateTweets = ???.asInstanceOf[ArrayBuffer[String]]
+    var mateTweets = ????("use toTweets").asInstanceOf[ArrayBuffer[String]]
 
     s"""
       <span onclick="$$('#dudeTweets-7').toggle()">${dude.name} tweeted ${dude.tweets.size}:</span>

@@ -12,15 +12,15 @@ case class Day9[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     s"""
-      Can Scala classes be more than data container...${???}
+      Can Scala classes be more than data container...${????("declare method User.tweet and override Tweet.toString")}
     """
     import collection.mutable.ListBuffer
 
     class User(var name:String, var tweets:ListBuffer[Tweet])
     class Tweet(var status:String, var tm:DateTime)
-    ??? //prettify Tweet!
+    ????("override def toString()") //prettify Tweet!
 
-    var dude = new User("Dude", ???) //let's start with an empty tweets' list
+    var dude = new User("Dude", ????("ListBuffer.empty")) //let's start with an empty tweets' list
 
     def createTweet() = new Tweet(nextString(nextInt(140)), now())
 

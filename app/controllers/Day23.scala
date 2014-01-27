@@ -13,7 +13,7 @@ case class Day23[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
 
   def sync: Future[String] = {
     s"""
-      Ok, ok, now what if we have delayed, async computations ${???}
+      Ok, ok, now what if we have delayed, async computations ${????("try to escape the callback hell")}
     """
     import scala.util.Random.{nextInt, nextDouble}
     case class Twitto(handle:String) {
@@ -35,8 +35,8 @@ case class Day23[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
     val asking:Future[String] = future {
       questioner.tweets(questions(nextInt(questions.size)))
     }
-    var text:String = ???
-    var answer:Future[String] = ???
+    var text:String = ????("a var ... again")
+    var answer:Future[String] = ????("come on...")
     asking.onSuccess {
       case tweet if tweet.contains("quest") =>
         text = tweet

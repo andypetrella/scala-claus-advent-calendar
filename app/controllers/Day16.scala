@@ -15,9 +15,9 @@ case class Day16[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     s"""
-      There must be a way to clean that up... Isn't it${???}
+      There must be a way to clean that up... Isn't it${????("map and flatMap filter")}
     """
-
+    StartFold
     case class User( name:String, tweets:List[Tweet] = List.empty) {
       def tweet(t:Tweet):User = this.copy(tweets = t :: tweets)
     }
@@ -43,13 +43,14 @@ case class Day16[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
           Tweet.random
         })
     }
+    EndFold
 
     val char = 'a'
     val texts = users.map { user =>
       val name = user.name
       val tweets = user.tweets
       val count = tweets.map(tweet => tweet.status)
-                        .flatMap(??? /*identity*/) ///// WHATT????
+                        .flatMap(????("identity... use For-Comprehension fot the whole thing") /*identity*/) ///// WHATT????
                         .filter(c => c == char) // we can also use 'count'
                         .length
 

@@ -16,7 +16,7 @@ case class Day14[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync:String = {
     s"""
-      What do you think about removing yet more noise${???}
+      What do you think about removing even more noise${????("remove parenthesis for random")}
     """
     object Util {
       import scala.util.Random.nextString
@@ -33,12 +33,12 @@ case class Day14[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     val tweets = List.fill(10) { Tweet.random() }
     val moreTweets = List.fill(5) { Tweet.random() }
 
-    val allTweets = tweets.addAll(???)
+    val allTweets = tweets.addAll(????("use  ++"))
 
     s"""
       <ul>
         ${for (t <- allTweets)
-          yield "<li>" + t.toString() + ???  + "</li>"
+          yield "<li>" + t.toString() + "</li>"
         }
       </ul>
     """

@@ -19,21 +19,23 @@ case class Day10[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       Nowadays, thee is a lot of buzz around the worth of immutability...
       And it's good...
       But we know that in Java it requires a lot of boilerplate and to be very careful
-      What about Scala ${???}
+      What about Scala ${????("User is a case and as a copy")}
     """
     import collection.mutable.ListBuffer
 
     // Time to switch to vals and case class
-    class User(val name:String, val tweets:ListBuffer[Tweet]) {
+    ????("we use val.... but case doesn't need it")
+    class User(val name:String, val tweets:ListBuffer[Tweet] = ????("use List")) {
+      ????("What about def tweet(s) with List => copy")
     }
-    ??? // OUCH mutable.ListBuffer
     class Tweet(val status:String, val tm:DateTime) {
       override def toString() = s"$status at $tm"
     }
 
-    val dude = new User("Dude", ListBuffer.empty) /// WARN!
+    ????("what about using a val?")
+    var dude = new User("Dude", ListBuffer.empty) /// WARN!
     def createTweet() = nextString(nextInt(140))
-    s"How to tweet ${???}"
+    s"How to tweet ${????("val tweetedDude = dude.tweet(createTweet())")}"
 
     s"""
       ${dude.name} has tweeted <strong>${dude.tweets(0) /*look how to access an indexed elem*/}</strong>!

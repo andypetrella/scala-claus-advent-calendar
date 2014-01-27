@@ -25,9 +25,12 @@ case class Day19[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     """
 
     object Person {
+      StartFold
       import scala.util.Random.nextPrintableChar
       def validChars:Stream[Char] = (nextPrintableChar #:: validChars).filter(c => c.isWhitespace || (('a' to 'z') contains c))
       def randomText(max:Int):String = validChars.take(max).mkString("")
+      EndFold
+
       def randomCountry:Option[Country] = 
         if (nextBoolean()) 
           Some(Belgium("FR"))
