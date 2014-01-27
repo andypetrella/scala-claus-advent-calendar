@@ -12,22 +12,24 @@ case class Day2[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   def sync:String = {
     //And we can even write Java-like code...
     //Create classes
-    class User(var name:String, var friends:java.util.Set[User]) {
+    class User(var name:String, var tweets:java.util.Set[String]) {
     }
+    ????("Create Tweet class")
 
     //counter
     var i:Int = 0;
     //bag
-    var users:java.util.Set[User] = ???;
+    var users:java.util.Set[User] = ????("new java.util.HashSet[User]()");
     //while-loop for building
     while (i < 10) {
+      ????("Create some tweets and use them in the constructor of User")
       users.add(new User("user"+i, new java.util.HashSet[User]()));
       i = i+1;
     }
     var names:java.util.List[String] = new java.util.ArrayList[String]();
     //for-loop for conversion
     for (u <- users) {
-      names.add(???);
+      names.add(????("Render a user with his number of tweets"));
     }
     //String accumulation
     var sb:StringBuffer = new StringBuffer();
