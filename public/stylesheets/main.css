@@ -1,6 +1,21 @@
 body {
     background-image: url("/assets/images/dark_mosaic.png");
 }
+
+@keyframes blink {
+    0% { color: red; }
+    100% { color: black; }
+}
+@-webkit-keyframes blink {
+    0% { color: red; }
+    100% { color: black; }
+}
+.blink {
+    -webkit-animation: blink 0.5s linear infinite;
+    -moz-animation: blink 0.5s linear infinite;
+    animation: blink 0.5s linear infinite;
+}
+
 .pt-page {
     padding-top: 5%;
     background-color: rgba(10,194,210, 0.1);

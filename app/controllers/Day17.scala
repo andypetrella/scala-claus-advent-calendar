@@ -36,9 +36,9 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
     import Util._
     import scala.util.Random.nextInt
     //create a bunch of users with a bunch of tweets
-    val users = List.fill(nextInt(50)) {
+    val users = List.fill(nextInt(5)) {
       User( randomText(10),
-        List.fill(100){
+        List.fill(10){
           Tweet.random
         })
     }
