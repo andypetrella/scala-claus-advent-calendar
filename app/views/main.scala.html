@@ -56,8 +56,8 @@
     <script src="@routes.Assets.at("javascripts/talk.js")" type="text/javascript" charset="utf-8"></script>
   </head>
   <body>
-    <div id="global-clock" style="position:fixed; top: 10px; left: 5%;" ></div>
-    <div id="clock" style="position:fixed; top: 10px; left: 75%;" ></div>
+    <div id="global-clock"></div>
+    <div id="clock"></div>
     @content
     <script>
       window.globalClock = $('#global-clock').FlipClock(30*3*60, {

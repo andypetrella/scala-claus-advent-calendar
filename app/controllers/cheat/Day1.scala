@@ -6,7 +6,7 @@ import controllers.DayTmpl
 
 
 case class Day1[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day1(s)
+  val content = views.html.day1()
 
   def sync:String = { // this is a method|function
     // Scala is JVM based

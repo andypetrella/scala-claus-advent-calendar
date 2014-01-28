@@ -5,7 +5,7 @@ import play.api.templates.HtmlFormat
 import scala.collection.mutable
 
 case class Day25[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day25(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day25()
 
 
   def sync: String = {

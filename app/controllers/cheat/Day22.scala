@@ -8,7 +8,7 @@ import scala.Some
 import controllers.DayTmpl
 
 case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day22(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day22()
 
 
 

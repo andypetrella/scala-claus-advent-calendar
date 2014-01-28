@@ -7,7 +7,7 @@ import scala.util.Random._
 import controllers.DayTmpl
 
 case class Day19[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day19(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day19()
 
   trait Country {
     def lg:String

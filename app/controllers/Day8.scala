@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import org.joda.time.DateTime.now
 
 case class Day8[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day8(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day8()
 
   def sync:String = {
     s"""

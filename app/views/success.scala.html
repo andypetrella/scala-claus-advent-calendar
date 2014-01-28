@@ -1,30 +1,50 @@
-@(code:controllers.Code)(content: Html)
+@(code:controllers.Code)(text:Html)(result: Html)
 
 @defining{scala.util.Random.nextInt(1000000)} { id =>
   <div id="page-@id" class="row page">
-    <div id="code-@id" class="col-xs-3">
-      <div id="success-@id" class="editor show" style="height: @{code.code.size*14}px">@code.code</div>
+    <div class="col-xs-12 success">
+      <div id="code-@id" class="editor show code">@code.code</div>
+      <div id="text-@id" class="well text">@text</div>
+      <div id="result-@id" class="well result">@result</div>
     </div>
-    <div id="explain-@id" class="col-xs-9">@content</div>
   </div>
   <script>
-    var editor = ace.edit("success-@id");
+    var editor = ace.edit("code-@id");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setTabSize(2);
     editor.getSession().setUseSoftTabs(true);
-    editor.setReadOnly(true);
+    editor.setReadOnly(false);
+    editor.setFontSize(15);
+    editor.setPrintMarginColumn(120);
     editor.getSession().setMode("ace/mode/scala");
-    var main = $("#page-@id");
-    var code = $("#code-@id");
-    var codeW = 3;
-    var explain = $("#explain-@id");
-    var explainW = 9;
     function refreshEditor() {
       setTimeout(function() {
         editor.resize(true);
       }, 550);
     }
-    main.on("open", function() {
+    var main = $("#page-@id");
+    main
+      .on("open-code", function() {
+        $("#code-@id").show().css("opacity", "1");
+        $("#text-@id").css("opacity", "0").hide();
+        $("#result-@id").css("opacity", "0").hide();
+      })
+      .on("open-text", function() {
+        $("#code-@id").css("opacity", "0").hide();
+        $("#text-@id").show().css("opacity", "1");
+        $("#result-@id").css("opacity", "0").hide();
+      })
+      .on("open-result", function() {
+        $("#code-@id").css("opacity", "0").hide();
+        $("#text-@id").css("opacity", "0").hide();
+        $("#result-@id").show().css("opacity", "1");
+      })
+    //var main = $("#page-@id");
+    //var code = $("#code-@id");
+    //var codeW = 3;
+    //var explain = $("#explain-@id");
+    //var explainW = 9;
+    /*main.on("open", function() {
         if (codeW > 0) {
           code.removeClass("col-xs-12")
             .removeClass("col-xs-"+codeW)
@@ -36,7 +56,7 @@
             .show();
         refreshEditor();
       })
-      .on("open-wide", function() {
+      .on("show-code", function() {
         code.removeClass("col-xs-12")
           .removeClass("col-xs-"+codeW)
           .addClass("col-xs-12")
@@ -91,6 +111,6 @@
             .addClass("col-xs-"+(explainW+1));
         explainW++;
         refreshEditor();
-      });
+      })*/;
   </script>
 }

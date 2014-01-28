@@ -115,25 +115,29 @@ function Talk(day) {
 $(document).on("keyup", function(event) {
   var focusInEditor = $(document.activeElement).parents("div.editor").length;
   if (!focusInEditor) {
+    var currentPage = $(".pt-page-"+talk.currentDay+" .row");
+
     if (event.keyCode==39 && talk.todayPage().hasClass("done")) { //right
       talk.goToSleep();
     } else if (event.keyCode == 37) { //left
       talk.rewind();
-    } else if (event.keyCode == 187) { // +
-      $(".pt-page-"+talk.currentDay+" .row").trigger('increase');
-    } else if (event.keyCode == 189) { // -
-      $(".pt-page-"+talk.currentDay+" .row").trigger('decrease');
-    } else if (event.keyCode == 79) { // o
-      if (event.shiftKey) {
-        $(".pt-page-"+talk.currentDay+" .row").trigger('open-wide');
-      } else {
-        $(".pt-page-"+talk.currentDay+" .row").trigger('open');
-      }
     } else if (event.keyCode == 70) { // f
       if (event.ctrlKey && event.altKey && window.currrentEditor) {
         window.currrentEditor.toggleFullScreen();
       } else {
-        $(".pt-page-"+talk.currentDay+" .row").trigger('close');
+        currentPage.trigger('close');
+      }
+    } else if (event.keyCode == 67) { // c
+      currentPage.trigger('open-code');
+    } else if (event.keyCode == 82) { // r
+      currentPage.trigger('open-result');
+    } else if (event.keyCode == 84) { // t
+      currentPage.trigger('open-text');
+    } else if (event.keyCode == 79) { // o
+      if (event.shiftKey) {
+        currentPage.trigger('open-wide');
+      } else {
+        currentPage.trigger('open');
       }
     } else if (event.keyCode == 83) { // s
       if (event.ctrlKey && event.altKey && window.globalClock) {

@@ -8,7 +8,7 @@ import scala.util.Random._
 import controllers.DayTmpl
 
 case class Day9[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day9(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day9()
 
   def sync:String = {
     s"""

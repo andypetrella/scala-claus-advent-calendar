@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import scala.util.{Failure, Success}
 
 case class Day24[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
-  val content: Future[String] => HtmlFormat.Appendable = s => Await.result(s.map(r => views.html.day24(r)), 10 seconds)
+  val content = views.html.day24()
 
   import scala.util.Random.{nextInt, nextDouble}
   case class Twitto(handle:String) {

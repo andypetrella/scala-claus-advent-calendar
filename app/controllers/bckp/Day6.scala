@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 import controllers.DayTmpl
 
 case class Day6[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day6(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day6()
 
   def sync:String = {
     // ordered type values has 'to'

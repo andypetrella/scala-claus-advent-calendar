@@ -1,13 +1,16 @@
 package controllers
 
 import play.api.mvc._
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import play.api.mvc.Results._
-import play.api.templates.HtmlFormat
+import play.api.templates.{Html, HtmlFormat}
 import scalax.file.Path
 
 import play.api.mvc.SimpleResult
 
+trait ToAppendable[M] {
+  def apply(m:M):HtmlFormat.Appendable
+}
 trait DayTmpl[A, M] extends Action[A] {
   import DayTmpl._
   val day:Int = this.getClass.getSimpleName.drop("Day".length).toInt
@@ -15,16 +18,25 @@ trait DayTmpl[A, M] extends Action[A] {
   val file:Path = fileFor(day, cheats)
 
   implicit val code = extractCode(file)
+  def toAppendable(m:M):HtmlFormat.Appendable = Html(m.toString)
 
-  val content:M => HtmlFormat.Appendable
-
+  val content:HtmlFormat.Appendable
   def apply(request: Request[A]): Future[SimpleResult] = {
-    Future.successful(Ok(content(sync)))
+    Future.successful(Ok(views.html.success(code)(content)(toAppendable(sync))))
   }
 
   def sync:M
 }
 object DayTmpl {
+  implicit val resultStringAsHtml:ToAppendable[String] = new ToAppendable[String] {
+    def apply(m: String): HtmlFormat.Appendable = Html.apply(m)
+  }
+  implicit val resultFutureStringAsHtml:ToAppendable[Future[String]] = new ToAppendable[Future[String]] {
+    import scala.concurrent.duration._
+    import scala.concurrent.ExecutionContext.Implicits.global
+
+    def apply(m: Future[String]): HtmlFormat.Appendable = Await.result(m.map(r => Html.apply(r)), 10 seconds)
+  }
 
   def defaultPath = Path(".") / "app" / "controllers"
   def cheatingPath = defaultPath / "cheat"

@@ -8,7 +8,7 @@ import scala.List
 import controllers.DayTmpl
 
 case class Day13[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day13(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day13()
 
   implicit class ListOps[A](as:List[A]) {
     def add(a:A) = a::as

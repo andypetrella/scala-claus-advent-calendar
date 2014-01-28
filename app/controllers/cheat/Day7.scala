@@ -9,7 +9,7 @@ import scala.StringBuilder
 import controllers.DayTmpl
 
 case class Day7[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  val content: String => HtmlFormat.Appendable = s => views.html.day7(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day7()
 
   def sync:String = {
     s"""

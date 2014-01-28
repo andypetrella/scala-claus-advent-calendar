@@ -5,7 +5,7 @@ import play.api.templates.HtmlFormat
 
 
 case class Day1[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
-  lazy val content: String => HtmlFormat.Appendable = s => views.html.day1(s)
+  lazy val content: HtmlFormat.Appendable = views.html.day1()
 
   def sync:String = { // this is a method|function
     // Scala is JVM based

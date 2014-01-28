@@ -11,7 +11,7 @@ import controllers.DayTmpl
 import java.lang.IllegalStateException
 
 case class Day23[A](parser: BodyParser[A]) extends DayTmpl[A, Future[String]] {
-  val content: Future[String] => HtmlFormat.Appendable = s => Await.result(s.map(r => views.html.day23(r)), 10 seconds)
+  val content = views.html.day23()
 
   def sync: Future[String] = {
     s"""
