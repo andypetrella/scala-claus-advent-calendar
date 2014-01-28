@@ -25,7 +25,7 @@ case class Day4[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     //Create Set using List builder
     var users:Set[User] = Set(List.fill(10) {
       //Create less than 50 random tweets with random status of length <= 140
-      ????("List.fill(nextInt(50)) Tweets")
+      ????("List.fill(nextInt(50)) Tweets and nextString")
       i+=1
       // Create a User
       ????("new User")

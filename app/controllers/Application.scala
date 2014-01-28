@@ -11,12 +11,12 @@ import play.api.templates.Html
 
 object Application extends Controller {
 
-  def index = Action {
-    Ok(views.html.index("Information about the talk."))
+  def index(godMode:Boolean=false) = Action {
+    Ok(views.html.index("Information about the talk.", godMode))
   }
 
   def talk(currentDay:Int = 1) = Action {
-    Ok(views.html.index("The show is going on.", currentDay))
+    Ok(views.html.index("The show is going on.", false, currentDay))
   }
 
   def day(day:Int, cheat:Option[Boolean]) = TalkAction { implicit r =>

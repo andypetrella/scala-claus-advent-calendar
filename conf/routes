@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                           controllers.Application.index(godMode:Boolean=false)
 
 GET     /talk                       controllers.Application.talk(currentDay:Int = 1)
 GET     /talk/:currentDay           controllers.Application.talk(currentDay:Int)

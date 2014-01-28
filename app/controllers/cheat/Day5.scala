@@ -15,7 +15,7 @@ case class Day5[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
     // No
     // Really easy
     var name:String = "Noootsab"
-    var script:String = """def tuto(me):
+    var script:String = s"""def tuto(me):
                            |  return "Hello, " + me
                            |msg = tuto("$name")
                         """.stripMargin
