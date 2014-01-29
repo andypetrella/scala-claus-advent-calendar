@@ -10,7 +10,9 @@ function Talk(day) {
 
   this.start = function() {
     window.globalClock.start();
+    window.dayClock.start();
     this.wakeUp();
+    this.retries = 0;
   };
 
   this.yesterdayPage = function () {
@@ -22,9 +24,11 @@ function Talk(day) {
   };
 
   this.fetchDay = function (day) {
+    var me = this;
     var nextPage = dayPage(day);
     var ajax = jsRoutes.controllers.Application.day(day, window.godMode).ajax();
     ajax.done(function(html) {
+      me.retries = 0;
       nextPage.remove();
       var current = dayPage(day-1);
 
@@ -39,6 +43,13 @@ function Talk(day) {
     ajax.fail(function(resp) {
       if (resp.status == 501) {
         nextPage.remove();
+        if (!me.retries) {
+          // restart the clock
+          window.dayClock.stop();
+          window.dayClock.setTime(3*60);
+          window.dayClock.start();
+        }
+        me.retries++;
         var current = dayPage(day-1);
 
         nextPage = $("<div class='pt-page todo pt-page-"+day+"'></div>");
@@ -58,11 +69,7 @@ function Talk(day) {
     return ajax;
   };
   this.wakeUp = function () {
-    var f = this.fetchDay(this.currentDay);
-    // restart the clock
-    window.dayClock.stop();
-    window.dayClock.setTime(3*60);
-    window.dayClock.start();
+    return this.fetchDay(this.currentDay);
   };
   this.goToSleep = function () {
     this.currentDay ++;
