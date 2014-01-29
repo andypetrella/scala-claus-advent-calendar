@@ -58,18 +58,18 @@
   <body>
     <div id="global-clock"></div>
     <div id="clock"></div>
-    @content
     <script>
       window.globalClock = $('#global-clock').FlipClock(30*3*60, {
         countdown: true,
         autoStart: false,
         clockFace: 'HourCounter'
       });
-      window.clock = $('#clock').FlipClock(3*60, {
+      window.dayClock = $('#clock').FlipClock(3*60, {
         countdown: true,
         autoStart: false,
         clockFace: 'MinuteCounter'
       });
     </script>
+    @content
   </body>
 </html>

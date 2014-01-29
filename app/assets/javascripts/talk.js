@@ -8,6 +8,11 @@ function Talk(day) {
     return main.find(".pt-page-"+day);
   };
 
+  this.start = function() {
+    window.globalClock.start();
+    this.wakeUp();
+  };
+
   this.yesterdayPage = function () {
     return dayPage(this.currentDay-1);
   };
@@ -53,7 +58,11 @@ function Talk(day) {
     return ajax;
   };
   this.wakeUp = function () {
-    return this.fetchDay(this.currentDay);
+    var f = this.fetchDay(this.currentDay);
+    // restart the clock
+    window.dayClock.stop();
+    window.dayClock.setTime(3*60);
+    window.dayClock.start();
   };
   this.goToSleep = function () {
     this.currentDay ++;

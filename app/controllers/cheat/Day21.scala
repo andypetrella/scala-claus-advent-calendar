@@ -58,30 +58,33 @@ case class Day21[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
     val persons = List.fill(1000)(Person.random)
 
+    def greets(nationality:Country, gender:Gender) = {
+      if (nationality.isInstanceOf[Belgium]) {
+        val belgian = nationality.asInstanceOf[Belgium]
+        if (belgian.lg == "FR") {
+          Some(s"Salut, ${walloon(gender)}...")
+        } else if (belgian.lg == "NL") {
+          Some(s"Hallo, ${flemish(gender)}!")
+        } else if (belgian.lg == "DE") {
+          Some(s"Hallo, ${deutsch(gender)}!")
+        } else {
+          None
+        }
+      } else if (nationality == England) {
+        Some(s"Hello, ${english(gender)}!")
+      } else if (nationality == France) {
+        Some(s"Salut, ${french(gender)} !")
+      } else {
+        None
+      }
+    }
+
     val greetings = persons.map { person =>
       val greet = for {
         nationality <- person.nationality
         gender      <- person.gender
-      } yield {
-        if (nationality.isInstanceOf[Belgium]) {
-          val belgian = nationality.asInstanceOf[Belgium]
-          if (belgian.lg == "FR") {
-            Some(s"Salut, ${walloon(gender)}...")
-          } else if (belgian.lg == "NL") {
-            Some(s"Hallo, ${flemish(gender)}!")
-          } else if (belgian.lg == "DE") {
-            Some(s"Hallo, ${deutsch(gender)}!")
-          } else {
-            None
-          }
-        } else if (nationality == England) {
-          Some(s"Hello, ${english(gender)}!")
-        } else if (nationality == France) {
-          Some(s"Salut, ${french(gender)} !")
-        } else {
-          None
-        }
-      }
+        greeting    <- greets(nationality, gender)
+      } yield greeting
       greet.getOrElse(s"...")
     }
 

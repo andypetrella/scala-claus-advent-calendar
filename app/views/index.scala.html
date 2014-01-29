@@ -1,12 +1,11 @@
-@(message: String, godMode:Boolean = false, currentDay:Int = 1)
+@(message: String, cheat:Option[Boolean]=None, currentDay:Int = 1)
 
 @main("Scala Claus' Advent Calendar") {
   <div id="pt-main" class="pt-perspective">
   </div>
   <script>
-    window.godMode = @godMode;
+    window.godMode = @cheat.getOrElse("false");
     talk = new Talk(@currentDay);
-    talk.wakeUp();
-
+    talk.start();
   </script>
 }

@@ -5,7 +5,7 @@ import play.api.templates.HtmlFormat
 import org.joda.time.DateTime
 import org.joda.time.DateTime.now
 import scala.List
-import controllers.DayTmpl
+import controllers._
 
 case class Day16[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
   lazy val content: HtmlFormat.Appendable = views.html.day16()
@@ -47,11 +47,14 @@ case class Day16[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
 
     val char = 'a'
     val texts = users.map { user =>
-      val ones = for {
-        tweet <- user.tweets
-        c     <- tweet.status if c == char
-      } yield 1
-      s"${user.name} has tweeted ${ones.sum} '$char'"
+      val name = user.name
+      val tweets = user.tweets
+      val count = tweets.map(tweet => tweet.status)
+        .flatMap(c => c) ///// WHATT??
+        .filter(c => c == char) // we can also use 'count'
+        .length
+
+      s"$name has tweeted $count '$char'"
     }
 
     s"""

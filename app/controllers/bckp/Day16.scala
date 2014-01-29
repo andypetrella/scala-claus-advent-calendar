@@ -50,7 +50,7 @@ case class Day16[A](parser:BodyParser[A]) extends DayTmpl[A, String] {
       val name = user.name
       val tweets = user.tweets
       val count = tweets.map(tweet => tweet.status)
-                        .flatMap(??? /*identity*/) ///// WHATT????
+                        .flatMap(??? /*c => c */) ///// WHATT??
                         .filter(c => c == char) // we can also use 'count'
                         .length
 

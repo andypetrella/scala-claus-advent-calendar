@@ -85,9 +85,8 @@ case class Day22[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
       val greet = for {
         nationality <- person.nationality
         gender      <- person.gender
-      } yield {
-        greets(nationality, gender)
-      }
+        greeting    <- greets(nationality, gender)
+      } yield greeting
       greet.getOrElse(s"...")
     }
 

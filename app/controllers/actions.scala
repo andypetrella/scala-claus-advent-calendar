@@ -29,7 +29,7 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
     day.bindFromRequest.fold(
       hasErrors = _ => Future.successful(BadRequest("Unknown day!")),
       success = {case (day, cheat) => {
-        val tmpl: DayTmpl[A, _] = DayTmpl.actionFor[A](day, parser, cheat.isDefined)
+        val tmpl: DayTmpl[A, _] = DayTmpl.actionFor[A](day, parser, cheat.getOrElse(false))
         try {
           tmpl(request)
         } catch {
