@@ -29,15 +29,19 @@ case class DayAction[A](action: Action[A]) extends Action[A] {
     day.bindFromRequest.fold(
       hasErrors = _ => Future.successful(BadRequest("Unknown day!")),
       success = {case (day, cheat) => {
-        val tmpl: DayTmpl[A, _] = DayTmpl.actionFor[A](day, parser, cheat.getOrElse(false))
-        try {
-          tmpl(request)
-        } catch {
-          case e:Throwable => {
-            println(">> Exception for Day: " + day)
-            e.printStackTrace()
-            println("Exception for Day: " + day + " <<")
-            Future.successful(NotImplemented(views.html.todo(day, tmpl.file.updateForWin, tmpl.code) ))
+        if (day > 25) {
+          Future.successful(Ok(views.html.done()))
+        } else {
+          val tmpl: DayTmpl[A, _] = DayTmpl.actionFor[A](day, parser, cheat.getOrElse(false))
+          try {
+            tmpl(request)
+          } catch {
+            case e:Throwable => {
+              println(">> Exception for Day: " + day)
+              e.printStackTrace()
+              println("Exception for Day: " + day + " <<")
+              Future.successful(NotImplemented(views.html.todo(day, tmpl.file.updateForWin, tmpl.code) ))
+            }
           }
         }
       }}
