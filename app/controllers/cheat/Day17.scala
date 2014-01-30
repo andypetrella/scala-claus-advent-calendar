@@ -5,7 +5,7 @@ import play.api.templates.HtmlFormat
 import org.joda.time.DateTime
 import org.joda.time.DateTime.now
 import scala.List
-import controllers.DayTmpl
+import controllers._
 
 case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   lazy val content: HtmlFormat.Appendable = views.html.day17()
