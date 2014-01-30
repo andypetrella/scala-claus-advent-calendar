@@ -11,24 +11,25 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
   def sync: String = {
     s"""
-      The random text aren't cute and, moreover, not representative... what could I do${????("")}
+      Map, flatMap, filter... there must be a better way, no ${????("for-comp!")}
     """
 
+    StartFold
     case class User( name:String, tweets:List[Tweet] = List.empty) {
       def tweet(t:Tweet):User = this.copy(tweets = t :: tweets)
     }
     object Util {
       // nextPrintableChar
       import scala.util.Random.nextString
-      ????("validChars:Stream[Char] using nextPrintableChar and recursive")
-      def randomText(max:Int):String = nextString(max).filter(c => ????("needs a filter on a stream and take max")) // REALLY??
+      import scala.util.Random.nextPrintableChar
+      def validChars:Stream[Char] = (nextPrintableChar #:: validChars).filter(c => c.isWhitespace || (('a' to 'z') contains c))
+      def randomText(max:Int):String = validChars.take(max).mkString("")
     }
 
     object Tweet {
       val MaxStatusLength = 140
       def random:Tweet = new Tweet(Util.randomText(MaxStatusLength))
     }
-    StartFold
     class Tweet(val status:String, val tm:DateTime = now()) {
       override def toString = s"tweet: $status at $tm"
     }
@@ -42,6 +43,7 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
           Tweet.random
         })
     }
+    EndFold
 
     val char = 'a'
     val texts = users.map { user =>
@@ -53,7 +55,6 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
 
       s"$name has tweeted $count '$char'"
     }
-    EndFold
 
     s"""
      ${texts.mkString("<br/>")}

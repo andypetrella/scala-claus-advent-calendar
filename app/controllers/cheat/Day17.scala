@@ -1,28 +1,26 @@
-package controllers.cheat
+package controllers
 
 import play.api.mvc._
 import play.api.templates.HtmlFormat
 import org.joda.time.DateTime
 import org.joda.time.DateTime.now
 import scala.List
-import controllers.DayTmpl
 
 case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
   lazy val content: HtmlFormat.Appendable = views.html.day17()
 
-  implicit class ListOps[A](as: List[A]) {
-    def addAll(os: List[A]) = as ::: os
-  }
-
   def sync: String = {
     s"""
-      The random text aren't cute and, moreover, not representative... I could FILTER!
+      Map, flatMap, filter... there must be a better way, no ${????("for-comp!")}
     """
 
+    StartFold
     case class User( name:String, tweets:List[Tweet] = List.empty) {
       def tweet(t:Tweet):User = this.copy(tweets = t :: tweets)
     }
     object Util {
+      // nextPrintableChar
+      import scala.util.Random.nextString
       import scala.util.Random.nextPrintableChar
       def validChars:Stream[Char] = (nextPrintableChar #:: validChars).filter(c => c.isWhitespace || (('a' to 'z') contains c))
       def randomText(max:Int):String = validChars.take(max).mkString("")
@@ -45,15 +43,17 @@ case class Day17[A](parser: BodyParser[A]) extends DayTmpl[A, String] {
           Tweet.random
         })
     }
+    EndFold
 
     val char = 'a'
     val texts = users.map { user =>
       val name = user.name
       val tweets = user.tweets
-      val count = tweets.map(tweet => tweet.status)
-                        .flatMap(s => s)
-                        .count(c => c == char)
-
+      val occurrences = for {
+        tweet <- tweets
+        c     <- tweet.status if c == char
+      } yield 1
+      val count = occurrences.sum
       s"$name has tweeted $count '$char'"
     }
 
