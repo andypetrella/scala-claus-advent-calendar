@@ -76,10 +76,13 @@ So after having cloned the repository, we can move into it, and enter the consol
 ```
 $ git clone git@github.com:andypetrella/scala-claus-advent-calendar.git
 $ cd scala-claus-advent-calendar
+$ git checkout -b my-new-session
 $ custom-play
 ```
 
 This will prepare some stuffs (mainly downloading some libs) and enter a Play console (being a customize SBT one).
+
+Note: the creation of a dedicated branch for the session is not mandatory but it's cleaner. That, because the application will create or **change** files in the repo that won't have to be pushed!
 
 To launch it, you'll simply have to run it
 ```
@@ -92,44 +95,79 @@ Now, we can head to a Chrome (preferred browser for the talk) and go to [http://
 
 ### The talk
 #### Present it, the hard way
-go to
+##### Premisses
+The very first page is decoupled from the rest of the talk. It simply shows the title of the talk and a button that will start the presentation application.
 
-start button
+So click `start`.
 
-the day1 code fails, update the code
+##### Slide
+###### First show
+At this stage, the application starts and shows a red-ish page with only a code block in it.
+This code is erroreneous and will have to be updated until it passes.
 
-save it
+###### Changes
+What has to be changed? As usual in *Scala*, the lines that have to be filled or reworked contains a `???` value in it.
 
-If it fails, update again
+For simplicity, these lines are reported as errors in the margin of the editor. So, hovering the red crosses symbols will pop a help message for the current line.
 
-If it has comilation error, look at the error message, update again
+###### Save
+When the code looks good, it's time to push it to the application, that is, *to save* it. This can be achieved by pressing `CTRL+S` (Apple® fans will translate easily :-D).
 
-Until the slides is shown
+When the updated code is saved, there are several cases.
+###### Compilation failure
+The submitted code is not compiling.
 
-Switch to the result, code, slide
+Fortunately, Play! 2 is able to deal with this kind of failures and will return a error page. In order to not break the presentation flow, this error page will be opened in another window.
 
-Next slide, repeat until final page
+So can you eaily find what the problems are and update the code accordingly, before saving once again.
+
+###### Runtime failure
+The other case that might (will?) happen is that the saved code won't work, and result in a runtime error.
+
+These errors are silently handled, thus saving the code and staying on the same page means change something.
+
+**NOTE**: I know it's BAD, and thus, it might change (if you help me, or if I have a chance to find some time... a day...).
+
+###### Cannot make it work!?
+It's time to **cheat**. No fear, it may happen for a plenty of reason, like the stress, the time or whatsoever and not related to your Scala skills!
+
+To load the cheat code, just press `CTRL+ALT+C`. (*mnemonic* is *C* for *C*he*A*t *C*ode).
+
+###### Compiled and ran
+Success!!
+
+The result of the published code will be available in the background, but the code itself will be replaced by a slide explaining to the crowd what just happened.
+
+Some shortcuts are available to show the code back, the result, and so on. Check the [Shortcuts recap](#Shortcuts recap) section for them.
+
+###### Recursion
+This process is true for all slides, so at this point, the best is to move to the next slide.
+
+Press `right`.
+
+Reaching the last slide, and `left` won't do anything...
+
+###### Backward
+You pressed `right` too fast, or a question pops out in the attendance related to the previous slide...
+
+Press `left` to backtrack one slide.
 
 #### God Mode, the soft way
-only the slides are coming, by picking the cheat.Day* actions.
+You know, if you want to speed up the talk or repeat it in your bedroom or ... or... In these cases, it's worth switching to the **god mode**.
 
+In god mode, only the slides are coming up, that means that only the result of the publishing of compilable and running codes (the application switches to the controllers and actions within the `cheat` package).
+
+No more suspense, switching to this mode is pretty simple by adding a `cheat=true` query parameter to the URL. An example on the root URL is [http://localhost:9000/?cheat=true](http://localhost:9000/?cheat=true).
 
 #### Shortcuts recap
-CTRL+S
-
-left; right;
-
-CTRL+ALT+C
-
-CTRL+ALT+F
-
-c
-
-t
-
-r
-
-
+* Saving the code: `CTRL+S`
+* Next slide: `left`
+* Previous slide: `right`
+* Load cheating code for current slide: `CTRL+ALT+C`
+* Show code in full screen: `CTRL+ALT+F`
+* Show the successful *code*: `c`
+* Show the execution *result*: `r`
+* Show the resulting *text*: `t`. This will show the slide back if we had to show the code (using `c`) or the execution result (using `r`).
 
 ## Behind the scenes
 ### Concepts
