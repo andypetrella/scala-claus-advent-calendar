@@ -4,12 +4,19 @@
 ### Goal and context
 This application is actually a talk, that was initially given at [BruJUG in Belgium/Brussels](http://wiki.brussels-jug.be/doku.php?id=events4:2014_01_session1).
 
+It has been given for a team at Virdata (Technicolor) which is putting efforts in building their Big Data/IoT platform in Scala.
+
+Another session is for the JDL in Mons (still in Belgium), [the 15th of May 2014](http://jeudisdulibre.be/2014/04/30/mons-le-15-mai-echo-java-sed-sjavscal-le-langage-de-programmation-scala/).
+
 This talk aims to be a gentle, pragmatic and didactic approach of the programming language [Scala](http://www.scala-lang.org/).
 
 ### Synopsys
 The line up is composed of 25 features of the language.
-They all share the same property that each be used for our everyday work. 
+
+They all share the same property, that is, they can be used in our everyday work. 
+
 They are presented in such a way that the next feature enables a cleaner code -- most of the time, more readable.
+
 And, of course, the level increases slightly in order to take the time to catch the concepts intuitivelly. 
 
 ### Features
@@ -41,24 +48,50 @@ And, of course, the level increases slightly in order to take the time to catch 
 
 ## How to use it
 ### Requirements
-SBT
-custom play
+This talk is a [Play! 2](http://www.playframework.com/) application that uses a customized version of the framework.
+
+This version can be found [on github](https://github.com/andypetrella/playframework).
+
+To install it locally, you'll simply need to:
+```
+$ git clone https://github.com/andypetrella/playframework
+$ cd playframework/framework
+$ ./build
+```
+
+This will prepare the whole thingy, and put you in a [SBT](http://www.scala-sbt.org/) console, and will let you do the very final step:
+```
+[info] Set current project to Root (in build file:<...>/playframework/framework/)
+> publish-local
+```
+
+This might take sometime since it will compile and create the framework itself and finally publishing it locally. Publishing locally in SBT means that the build packages will be put in `~/.ivy2/local/com.typesafe.play`.
 
 ### Run
 console
+
 ~run
+
 Chrome
 
 ### The talk
 #### Present it, the hard way
 go to
+
 start button
+
 the day1 code fails, update the code
+
 save it
+
 If it fails, update again
+
 If it has comilation error, look at the error message, update again
+
 Until the slides is shown
+
 Switch to the result, code, slide
+
 Next slide, repeat until final page
 
 #### God Mode, the soft way
@@ -67,11 +100,17 @@ only the slides are coming, by picking the cheat.Day* actions.
 
 #### Shortcuts recap
 CTRL+S
+
 left; right;
+
 CTRL+ALT+C
+
 CTRL+ALT+F
+
 c
+
 t
+
 r
 
 
@@ -95,4 +134,5 @@ r
 
 ### Cheating
 index page with special param
+
 fetch the code within the cheat package
