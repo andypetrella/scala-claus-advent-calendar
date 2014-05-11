@@ -138,7 +138,7 @@ Success!!
 
 The result of the published code will be available in the background, but the code itself will be replaced by a slide explaining to the crowd what just happened.
 
-Some shortcuts are available to show the code back, the result, and so on. Check the [Shortcuts recap](#Shortcuts recap) section for them.
+Some shortcuts are available to show the code back, the result, and so on. Check the [Shortcuts recap](#shortcuts-recap) section for them.
 
 ###### Recursion
 This process is true for all slides, so at this point, the best is to move to the next slide.
