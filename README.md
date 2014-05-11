@@ -67,12 +67,28 @@ This will prepare the whole thingy, and put you in a [SBT](http://www.scala-sbt.
 
 This might take sometime since it will compile and create the framework itself and finally publishing it locally. Publishing locally in SBT means that the build packages will be put in `~/.ivy2/local/com.typesafe.play`.
 
+**NOTE**: From now on, we'll assume that the `play` executable in the playframework directory will be in the `PATH` under the alias `cumstom-play`.
+
 ### Run
-console
+This talk being a Play! 2 application, the very first thing to be able to use it is to laynch the play console in its directory.
 
-~run
+So after having cloned the repository, we can move into it, and enter the console.
+```
+$ git clone git@github.com:andypetrella/scala-claus-advent-calendar.git
+$ cd scala-claus-advent-calendar
+$ custom-play
+```
 
-Chrome
+This will prepare some stuffs (mainly downloading some libs) and enter a Play console (being a customize SBT one).
+
+To launch it, you'll simply have to run it
+```
+$ ~run
+```
+
+Using the continuous execution (hence the `~`) will increase the responsivity of the talk (since changes will be reloaded in the background automatically).
+
+Now, we can head to a Chrome (preferred browser for the talk) and go to [http://localhost:9000](http://localhost:9000).
 
 ### The talk
 #### Present it, the hard way
